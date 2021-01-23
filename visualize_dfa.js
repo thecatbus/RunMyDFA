@@ -42,7 +42,6 @@ function draw_arrowhead(context, from, to, radius) {
 }
 
 function draw_transition(context, transition) {
-    console.log(transition.from.position[0], transition.from.position[1]);
     if (transition.to === transition.from) {
         context.beginPath();
         context.arc(transition.to.position.x + RADIUS + ARROWSIZE, transition.to.position.y + RADIUS, RADIUS, Math.PI*3/2, Math.PI);
@@ -53,7 +52,6 @@ function draw_transition(context, transition) {
         var angle;
         var x;
         var y;
-        console.log(transition.to.position.y - transition.from.position.y, transition.to.position.x - transition.from.position.x);
         angle = Math.atan2(transition.to.position.y - transition.from.position.y, transition.to.position.x - transition.from.position.x)
         x = transition.to.position.x - (RADIUS + ARROWSIZE) * Math.cos(angle);
         y = transition.to.position.y - (RADIUS + ARROWSIZE) * Math.sin(angle);

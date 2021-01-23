@@ -34,7 +34,7 @@ class Finite_Automaton {
 	constructor(alphabet=["0", "1"], states=[], transitions=[]){ 
 		this.alphabet = alphabet; 
 		this.states = states; 
-		this.transitions = transitions; 
+		this.transitions = transitions;
 	} 
 
 	addNode(node) { 

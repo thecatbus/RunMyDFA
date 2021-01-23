@@ -1,16 +1,13 @@
 window.addEventListener("load", () =>{
-	var workspace = new fabric.Canvas("workspace")
+	var workspace = new fabric.Canvas("workspace");
 
 	myDFA = new Finite_Automaton();
 	state0 = new State(name = "0", position = {x: workspace.width /2, y: workspace.height /2}, (0, "none"), false, true, "", 25, []);
 	myDFA.addNode(state0);
 
-
 	// updateDFA(myDFA);
 
 	draw_DFA(workspace, myDFA);
-
-	workspace.add(myDFA.states[0].figure());
 
 	console.log(workspace);
 });

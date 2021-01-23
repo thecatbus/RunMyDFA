@@ -16,31 +16,42 @@ class State {
 	} 
 
 	figure() {
-		let innerCircle = new fabric.Circle({
-			radius: 18, 
-			left: 'center', 
-			top: 'center' 
-		});
-
-		let outerCircle = new fabric.Circle({
-			radius: 20, 
-			left: 'center',
-			top: 'center',
-			borderColor: "#000000",
-			hasBorders: true,
-			fill: 'red'
-		});
-
-		let figure = new fabric.Group([outerCircle], {
-			left: this.position.x,
-			top: this.position.y
-		});
-
 		if (this.accepting) {
-			figure.add(innerCircle);
-		}
+			let innerCircle = new fabric.Circle({
+				radius: 18, 
+				left: 'center', 
+				top: 'center',
+				stroke: "#000000",
+				strokeWidth: 2,
+				fill: undefined
+			});
 
-		return figure;
+			let outerCircle = new fabric.Circle({
+				radius: 20, 
+				left: 'center',
+				top: 'center',
+				stroke: "#000000",
+				strokeWidth: 2,
+				fill: undefined
+			});
+
+
+			let figure = new fabric.Group([ outerCircle, innerCircle ], {
+				left: this.position.x,
+				top: this.position.y
+			});
+			return figure;
+		} else {
+			let figure = new fabric.Circle({
+				radius: 20,
+				left: this.position.x,
+				top: this.position.y,
+				stroke: "#000000",
+				strokeWidth: 2,
+				fill: undefined
+			});
+			return figure;
+		}
 	}
 }
 

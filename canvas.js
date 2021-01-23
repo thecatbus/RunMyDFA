@@ -1,19 +1,18 @@
 window.addEventListener("load", () =>{
-	const workspace = document.getElementById("workspace");
-	const ctx = workspace.getContext("2d");
+	var workspace = new fabric.Canvas("workspace")
 
 	state0 = new State("0", {x: workspace.width /2, y: workspace.height /2}, (0, "none"), false, true, "", 25, []);
 	myDFA = new Finite_Automaton(states=[state0]);
 	myDFA.addNode(state0);
 
-	updateDFA(myDFA);
 
-	draw_DFA(ctx, myDFA);
+	// updateDFA(myDFA);
 
-	window.addEventListener("resize", () =>{
-		workspace.height = window.innerHeight;
-		workspace.width = window.innerWidth;
-	});
+	draw_DFA(workspace, myDFA);
+
+	workspace.add(myDFA.states[0].figure());
+
+	console.log(workspace);
 });
 
 function updateDFA(dfa) {

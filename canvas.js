@@ -19,7 +19,7 @@ window.addEventListener("load", () =>{
 });
 
 function updateDFA(dfa) {
-	state1 = new State("1", { x: 500, y: 250 }, (0, "none"), false, false, "1", 50, []);
+	state1 = new State("1", { x: 500, y: 500 }, (0, "none"), false, false, "1", 50, []);
 	state2 = new State("2", { x: 750, y: 250 }, (0, "none"), false, false, "2", 50, []);
 
 	dfa.addNode(state1);

@@ -53,13 +53,14 @@ function draw_transition(context, transition) {
         var angle;
         var x;
         var y;
-        angle = Math.atan2(transition.to.y - transition.from.y, transition.to.x - transition.from.x)
-        x = transition.from.position.x + RADIUS * Math.cos(angle);
-        y = transition.from.position.y + RADIUS * Math.sin(angle);
+        console.log(transition.to.position.y - transition.from.position.y, transition.to.position.x - transition.from.position.x);
+        angle = Math.atan2(transition.to.position.y - transition.from.position.y, transition.to.position.x - transition.from.position.x)
+        x = transition.to.position.x - (RADIUS + ARROWSIZE) * Math.cos(angle);
+        y = transition.to.position.y - (RADIUS + ARROWSIZE) * Math.sin(angle);
         context.moveTo(x, y);
-        x = transition.to.position.x - RADIUS * Math.cos(angle);
-        y = transition.to.position.y - RADIUS * Math.sin(angle);
-        context.lineTo(transition.to.position.x, transition.to.position.y);
+        x = transition.from.position.x + (RADIUS + ARROWSIZE) * Math.cos(angle);
+        y = transition.from.position.y + (RADIUS + ARROWSIZE) * Math.sin(angle);
+        context.lineTo(x, y);
         context.stroke();
         draw_arrowhead(context, transition.to.position, { x: x, y: y }, ARROWSIZE);
     }

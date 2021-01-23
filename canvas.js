@@ -3,7 +3,8 @@ window.addEventListener("load", () =>{
 	const ctx = workspace.getContext("2d");
 
 	myDFA = new Finite_Automaton();
-	console.log(myDFA);
+	init = new State(name = 0, position = {x: workspace.width /2, y: workspace.height /2}, (0, "none"), false, true, "", 25, []);
+	myDFA.addNode(init);
 
 	draw_DFA(ctx, myDFA);
 

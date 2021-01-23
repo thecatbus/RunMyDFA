@@ -33,18 +33,18 @@ class Transition {
 }
 
 class Finite_Automaton { 
-	constructor(alphabet=["0", "1"], states=[new State()], transitions=[]){ 
+	constructor(alphabet=["0", "1"], states=[], transitions=[]){ 
 		this.alphabet = alphabet; 
 		this.states = states; 
 		this.transitions = transitions; 
 	} 
 
 	addNode(node) { 
-		this.states.append(node); 
+		this.states.push(node); 
 	} 
 
 	addArrow(transition) {
-		this.transitions.append(transition)
+		this.transitions.push(transition)
 	}
 }
 

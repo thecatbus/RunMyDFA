@@ -1,9 +1,10 @@
 const ARROWSIZE = 10;
+const RADIUS = 50;
 
 const workspace = document.getElementById('workspace');
 const ctx = workspace.getContext('2d');
 
-ctx.fillStyle = "#00FF00";
+ctx.fillStyle = "#000000";
 ctx.strokeStyle = "#000000";
 ctx.lineWidth = 3;
 
@@ -43,25 +44,33 @@ function draw_arrowhead(context, from, to, radius) {
 function draw_transition(context, transition) {
     console.log(transition.from.position[0], transition.from.position[1]);
     if (transition.to === transition.from) {
-        console.log({ x: transition.to.position.x + 2 * transition.to.radius, y: transition.to.position.y + 2 * transition.to.radius })
         context.beginPath();
-        context.arc(transition.to.position.x + transition.to.radius, transition.to.position.y, transition.to.radius, Math.PI*5/4., Math.PI*3/4.);
-        // context.arcTo(transition.)
+        context.arc(transition.to.position.x + RADIUS + ARROWSIZE, transition.to.position.y + RADIUS, RADIUS, Math.PI*3/2, Math.PI);
         context.stroke();
-        draw_arrowhead(context, { x : transition.to.position.x + 2 * transition.to.radius, y : transition.to.position.y }, { x : transition.to.position.x + transition.to.radius, y : transition.to.position.y }, ARROWSIZE);
+        draw_arrowhead(context, { x : transition.to.position.x + 2 * RADIUS, y : transition.to.position.y }, { x : transition.to.position.x + RADIUS + ARROWSIZE, y : transition.to.position.y }, ARROWSIZE);
     } else {
         context.beginPath();
-        context.moveTo(transition.from.position.x, transition.from.position.y);
+        var angle;
+        var x;
+        var y;
+        angle = Math.atan2(transition.to.y - transition.from.y, transition.to.x - transition.from.x)
+        x = transition.from.position.x + RADIUS * Math.cos(angle);
+        y = transition.from.position.y + RADIUS * Math.sin(angle);
+        context.moveTo(x, y);
+        x = transition.to.position.x - RADIUS * Math.cos(angle);
+        y = transition.to.position.y - RADIUS * Math.sin(angle);
         context.lineTo(transition.to.position.x, transition.to.position.y);
         context.stroke();
-        draw_arrowhead(context, transition.to.position, transition.from.position, ARROWSIZE);
+        draw_arrowhead(context, transition.to.position, { x: x, y: y }, ARROWSIZE);
     }
 }
 
 function draw_state(context, state) {
+    ctx.strokeStyle = "#0000FF";
     context.beginPath();
-    context.arc(state.position.x, state.position.y, state.radius, 0, 2 * Math.PI);
+    context.arc(state.position.x, state.position.y, RADIUS, 0, 2 * Math.PI);
     context.stroke();
+    ctx.strokeStyle = "#000000";
 }
 
 function draw_DFA(context, dfa) {
@@ -73,4 +82,4 @@ function draw_DFA(context, dfa) {
     })
 }
 
-// draw_DFA(ctx, dfa);
+

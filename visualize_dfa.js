@@ -1,10 +1,6 @@
 const workspace = document.getElementById('workspace');
 const ctx = workspace.getContext('2d');
 
-ctx.fillRect(25, 25, 100, 100);
-ctx.clearRect(45, 45, 60, 60);
-ctx.strokeRect(50, 50, 50, 50);
-
 function draw_arrowhead(context, from, to, radius) {
     var x_center = to.x;
     var y_center = to.y;
@@ -39,8 +35,6 @@ function draw_arrowhead(context, from, to, radius) {
 }
 
 function draw_transition(context, transition) {
-    console.log(transition.to.position[0]);
-    console.log(transition.to.position[1]);
     if (transition.to === transition.from) {
         context.arc(transition.to.position[0] + transition.to.radius, transition.to.position[1], transition.to.radius, Math.PI*5/4., Math.PI*3/4.)
         draw_arrowhead(context, (transition.to.position[0] + 2 * transition.to.radius, transition.to.position[1] + 2 * transition.to.radius), (transition.to.position[0] + transition.to.radius, transition.to.position[1] + transition.to.radius), Math.PI/2.)
@@ -64,9 +58,9 @@ function draw_DFA(context, dfa) {
     })
 }
 
-state0 = new State(0, (50, 50), (0, "none"), true, true, "0", 5, []);
-state1 = new State(1, (100, 50), (0, "none"), false, false, "1", 5, []);
-state2 = new State(2, (150, 50), (0, "none"), false, false, "2", 5, []);
+state0 = new State(0, [50, 50], (0, "none"), true, true, "0", 5, []);
+state1 = new State(1, [100, 50], (0, "none"), false, false, "1", 5, []);
+state2 = new State(2, [150, 50], (0, "none"), false, false, "2", 5, []);
 
 transition00 = new Transition(state0, state0, ["0"], "", "0");
 transition01 = new Transition(state0, state1, ["1"], "", "0");

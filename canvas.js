@@ -1,8 +1,8 @@
 window.addEventListener("load", () =>{
 	var workspace = new fabric.Canvas("workspace");
 
-	myDFA = new Finite_Automaton();
-	state0 = new State(name = "0", position = {x: workspace.width /2, y: workspace.height /2}, (0, "none"), false, true, "", 25, []);
+	state0 = new State("0", {x: workspace.width /2, y: workspace.height /2}, (0, "none"), false, true, "", 25, []);
+	myDFA = new Finite_Automaton(states=[state0]);
 	myDFA.addNode(state0);
 
 	// updateDFA(myDFA);
@@ -13,8 +13,8 @@ window.addEventListener("load", () =>{
 });
 
 function updateDFA(dfa) {
-	state1 = new State("1", { x: 500, y: 500 }, {ref: state0, where: "right"}, false, false, "1", 50, []);
-	state2 = new State("2", { x: 750, y: 250 }, {ref: state0, where: "left"}, false, false, "2", 50, []);
+	state1 = new State("1", {ref: state0, where: {right: true}}, false, false, "1", 50, []);
+	state2 = new State("2", {ref: state0, where: {left: true}}, false, false, "2", 50, []);
 
 	dfa.addNode(state1);
 	dfa.addNode(state2);

@@ -1,5 +1,11 @@
+const ARROWSIZE = 10;
+
 const workspace = document.getElementById('workspace');
 const ctx = workspace.getContext('2d');
+
+ctx.fillStyle = "#00FF00";
+ctx.strokeStyle = "#00FF00";
+ctx.lineWidth = 5;
 
 function draw_arrowhead(context, from, to, radius) {
     var x_center = to.x;
@@ -35,18 +41,27 @@ function draw_arrowhead(context, from, to, radius) {
 }
 
 function draw_transition(context, transition) {
+    console.log(transition.from.position[0], transition.from.position[1]);
     if (transition.to === transition.from) {
-        context.arc(transition.to.position[0] + transition.to.radius, transition.to.position[1], transition.to.radius, Math.PI*5/4., Math.PI*3/4.)
-        draw_arrowhead(context, (transition.to.position[0] + 2 * transition.to.radius, transition.to.position[1] + 2 * transition.to.radius), (transition.to.position[0] + transition.to.radius, transition.to.position[1] + transition.to.radius), Math.PI/2.)
+        console.log({ x: transition.to.position.x + 2 * transition.to.radius, y: transition.to.position.y + 2 * transition.to.radius })
+        context.beginPath();
+        context.arc(transition.to.position.x + transition.to.radius, transition.to.position.y, transition.to.radius, Math.PI*5/4., Math.PI*3/4.);
+        // context.arcTo(transition.)
+        context.stroke();
+        draw_arrowhead(context, { x : transition.to.position.x + 2 * transition.to.radius, y : transition.to.position.y }, { x : transition.to.position.x + transition.to.radius, y : transition.to.position.y }, ARROWSIZE);
     } else {
-        context.moveTo(transition.from.position[0], transition.from.position[1]);
-        context.lineTo(transition.to.position[0], transition.to.position[1]);
-        draw_arrowhead(context, transition.to.position, transition.from.position, Math.PI/2.);
+        context.beginPath();
+        context.moveTo(transition.from.position.x, transition.from.position.y);
+        context.lineTo(transition.to.position.x, transition.to.position.y);
+        context.stroke();
+        draw_arrowhead(context, transition.to.position, transition.from.position, ARROWSIZE);
     }
 }
 
 function draw_state(context, state) {
-    context.arc(state.position[0], state.position[1], state.radius, 0, 2*Math.PI);
+    context.beginPath();
+    context.arc(state.position.x, state.position.y, state.radius, 0, 2 * Math.PI);
+    context.stroke();
 }
 
 function draw_DFA(context, dfa) {
@@ -58,9 +73,9 @@ function draw_DFA(context, dfa) {
     })
 }
 
-state0 = new State(0, [50, 50], (0, "none"), true, true, "0", 5, []);
-state1 = new State(1, [100, 50], (0, "none"), false, false, "1", 5, []);
-state2 = new State(2, [150, 50], (0, "none"), false, false, "2", 5, []);
+state0 = new State(0, { x: 250, y: 250 }, (0, "none"), true, true, "0", 50, []);
+state1 = new State(1, { x: 500, y: 250 }, (0, "none"), false, false, "1", 50, []);
+state2 = new State(2, { x: 750, y: 250 }, (0, "none"), false, false, "2", 50, []);
 
 transition00 = new Transition(state0, state0, ["0"], "", "0");
 transition01 = new Transition(state0, state1, ["1"], "", "0");

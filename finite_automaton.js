@@ -5,7 +5,7 @@ class State {
 		    accepting=false, 
 		    initial=false,
             label="", 
-            radius=5,
+            radius=50,
 		    transitions=[]){ 
 		this.name = name;
 		this.position = position; 

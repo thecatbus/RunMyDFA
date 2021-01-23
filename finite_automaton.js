@@ -2,7 +2,7 @@ const ARROWLENGTH = 250
 
 class State { 
 	constructor(name="0", 
-            	position={x: 500, y: 500}, 
+               	position={x: 500, y: 500}, 
                 relative={ref: state0, where: {left: true, right: false, above: false, below: false}}, 
                 accepting=false, 
                 initial=true,
@@ -12,37 +12,25 @@ class State {
 		this.relative = relative;
 		this.accepting = accepting;
 		this.initial = initial;
-        this.label = label;
+       	        this.label = label; 
 	} 
 
-	draw(svg) {
-        console.log({ cx: this.position.x, cy: this.position.y });
-        this.figure = svg.circle(20, {cx : this.position.x, cy : this.position.y});
-		// let innerCircle = new fabric.Circle({
-		// 	radius: 18, 
-		// 	left: 'center', 
-		// 	top: 'center' 
-		// });
+	draw(svg) { 
+		this.outer = svg.circle(40, {
+			cx : this.position.x, 
+			cy : this.position.y,
+			stroke: "black",
+			fill: "none"});
+		
+		this.inner = svg.circle(30, { 
+			cx : this.position.x, 
+			cy : this.position.y, 
+			stroke: "black", 
+			fill: "none"});
 
-		// let outerCircle = new fabric.Circle({
-		// 	radius: 20, 
-		// 	left: 'center',
-		// 	top: 'center',
-		// 	borderColor: "#000000",
-		// 	hasBorders: true,
-		// 	fill: 'red'
-		// });
-
-		// let figure = new fabric.Group([outerCircle], {
-		// 	left: this.position.x,
-		// 	top: this.position.y
-		// });
-
-		// if (this.accepting) {
-		// 	figure.add(innerCircle);
-		// }
-
-		// return figure;
+		this.figure = svg.group();
+		this.figure.add(this.outer);
+		if (this.accepting) {this.figure.add(this.inner);}
 	}
 }
 
@@ -107,19 +95,18 @@ class Finite_Automaton {
             relative = { ref: state0, where: { left: true, right: false, above: false, below: false } },
             accepting = false,
             initial = true,
-            label = "") {
-        let position = { x: 0, y: 0 }
-        if (relative.where.left) position.x = -1;
-        if (relative.where.right) position.x = 1;
-        if (relative.where.above) position.y = -1;
-        if (relative.where.below) position.y = 1;
-        let len = Math.sqrt(position.x * position.x + position.y * position.y);
-        console.log(len);
-        position.x = ARROWLENGTH * position.x / len + relative.ref.position.x
-        position.y = ARROWLENGTH * position.y / len + relative.ref.position.y
-        let node = new State(name, position, relative, accepting, initial, label)
-        this.states.push(node); 
-	} 
+            label = "") { 
+	    let position = { x: 0, y: 0 } 
+	    if (relative.where.left) position.x = -1; 
+	    if (relative.where.right) position.x = 1; 
+	    if (relative.where.above) position.y = -1; 
+	    if (relative.where.below) position.y = 1; 
+	    let len = Math.sqrt(position.x * position.x + position.y * position.y); 
+	    position.x = ARROWLENGTH * position.x / len + relative.ref.position.x 
+	    position.y = ARROWLENGTH * position.y / len + relative.ref.position.y 
+	    let node = new State(name, position, relative, accepting, initial, label) 
+	    this.states.push(node); 
+    } 
 
 	addArrow(transition) {
 		this.transitions.push(transition)

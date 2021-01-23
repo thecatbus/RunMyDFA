@@ -1,9 +1,7 @@
 window.addEventListener("load", () =>{
 	var draw = SVG().addTo('body').size(1000, 800)
 	
-	// var workspace = new fabric.Canvas("workspace");
-
-	state0 = new State("0", {x: 500, y: 400}, (0, "none"), false, true, "", 25, []);
+	state0 = new State("0", {x: 500, y: 400}, (0, "none"), false, false, "", 25, []);
 	myDFA = new Finite_Automaton(states=[state0]);
 	
 	draw_DFA(myDFA, draw);
@@ -12,7 +10,6 @@ window.addEventListener("load", () =>{
 
 	draw_DFA(myDFA, draw);
 
-	// console.log(workspace);
 });
 
 function updateDFA(dfa) {

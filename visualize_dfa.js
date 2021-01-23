@@ -44,10 +44,13 @@ function draw_transition(context, transition) {
     console.log(transition.from.position[0], transition.from.position[1]);
     if (transition.to === transition.from) {
         console.log({ x: transition.to.position.x + 2 * transition.to.radius, y: transition.to.position.y + 2 * transition.to.radius })
+        ctx.strokeStyle = "#0000FF";
         context.beginPath();
-        context.arc(transition.to.position.x + transition.to.radius, transition.to.position.y, transition.to.radius, Math.PI*5/4., Math.PI*3/4.);
-        // context.arcTo(transition.)
+        // context.moveTo(transition.from.position.x + transition.to.radius, transition.from.position.y);
+        context.arc(transition.to.position.x + transition.radius, transition.to.position.y + transition.radius, transition.radius, Math.PI*3/2, Math.PI);
+        // context.arcTo(transition.to.position.x + transition.to.radius, transition.to.position.y, transition.to.position.x, transition.to.position.y + transition.radius, transition.radius*Math.sqrt(2));
         context.stroke();
+        ctx.strokeStyle = "#00FF00";
         draw_arrowhead(context, { x : transition.to.position.x + 2 * transition.to.radius, y : transition.to.position.y }, { x : transition.to.position.x + transition.to.radius, y : transition.to.position.y }, ARROWSIZE);
     } else {
         context.beginPath();

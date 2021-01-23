@@ -1,7 +1,7 @@
 class State { 
-	constructor(name=0, 
+	constructor(name="0", 
             	    position={x: 500, y: 500}, 
-		    relative=(0, "left"), 
+		    relative=(state0, "left"), 
 		    accepting=false, 
 		    initial=true,
             	    label="", 
@@ -17,7 +17,7 @@ class State {
 }
 
 class Transition {
-	constructor(from=0,
+	constructor(from = state0,
 		    to=[], 
 		    args=[],
 		    bend="",

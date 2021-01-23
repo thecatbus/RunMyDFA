@@ -37,10 +37,10 @@ function node_tex(node) {
 		code += ", accepting";
 	}
 
-	code += "] (" + node.name.toString() + ") ";
+	code += "] (" + (node.name) + ") ";
 
 	if (!node.initial) {
-		code += "[" + node.relative[1] + " of=" + node.relative[0].toString() + "] ";
+		code += "[" + (node.relative[1]) + " of=" + (node.relative[0].name) + "] ";
 	}
 
 	code += "{" + node.label + "};";
@@ -49,10 +49,10 @@ function node_tex(node) {
 }
 
 function arrow_tex(arrow) {
-	code = "(" + arrow.from + ") edge " + arrow.bend + " {" + arrow.label + "} "; 
+	code = "(" + arrow.from.name + ") edge " + arrow.bend + " {" + arrow.label + "} "; 
 
-	if (arrow.from != arrow.to) {
-		code += "(" + arrow.to.toString() + ")";
+	if (arrow.from.name != arrow.to.name) {
+		code += "(" + arrow.to.name + ")";
 	} else {
 		code += "()";
 	}
@@ -65,7 +65,7 @@ function tex(automaton) {
 		code += node_tex(node) + "\n";
 	}
 
-	if (automaton.transitions != []) { 
+	if (automaton.transitions.length != 0) { 
 		code += "\\path[->] \n"; 
 
 		for (arrow of automaton.transitions) { 

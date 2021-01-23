@@ -1,19 +1,17 @@
 class State { 
 	constructor(name=0, 
-            position=(0, 0), 
+            	    position={x: 500, y: 500}, 
 		    relative=(0, "left"), 
 		    accepting=false, 
-		    initial=false,
-            label="", 
-            radius=50,
+		    initial=true,
+            	    label="", 
 		    transitions=[]){ 
 		this.name = name;
 		this.position = position; 
 		this.relative = relative;
 		this.accepting = accepting;
 		this.initial = initial;
-        this.label = label;
-        this.radius = radius; 
+        	this.label = label;
 		this.transitions = transitions; 
 	} 
 }
@@ -40,11 +38,11 @@ class Finite_Automaton {
 	} 
 
 	addNode(node) { 
-		this.states.append(node); 
+		this.states.push(node); 
 	} 
 
 	addArrow(transition) {
-		this.transitions.append(transition)
+		this.transitions.push(transition)
 	}
 }
 

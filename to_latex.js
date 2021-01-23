@@ -40,7 +40,12 @@ function node_tex(node) {
 	code += "] (" + (node.name) + ") ";
 
 	if (!node.initial) {
-		code += "[" + node.relative.where + " of=" + node.relative.ref.name + "] ";
+		where = "";
+		if (node.relative.above) where += "above ";
+		if (node.relative.below) where += "below ";
+		if (node.relative.right) where += "right ";
+		if (node.relative.left) where += "left ";
+		code += "[" + node.relative.where + "of=" + node.relative.ref.name + "] ";
 	}
 
 	code += "{" + node.label + "};";

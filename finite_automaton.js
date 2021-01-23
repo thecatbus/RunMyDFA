@@ -16,7 +16,6 @@ class State {
 	} 
 
 	draw(svg) {
-        console.log({ cx: this.position.x, cy: this.position.y });
         this.figure = svg.circle(20, {cx : this.position.x, cy : this.position.y});
 		// let innerCircle = new fabric.Circle({
 		// 	radius: 18, 
@@ -113,12 +112,14 @@ class Finite_Automaton {
         if (relative.where.right) position.x = 1;
         if (relative.where.above) position.y = -1;
         if (relative.where.below) position.y = 1;
+        console.log(position, relative.where)
         let len = Math.sqrt(position.x * position.x + position.y * position.y);
         console.log(len);
         position.x = ARROWLENGTH * position.x / len + relative.ref.position.x
         position.y = ARROWLENGTH * position.y / len + relative.ref.position.y
         let node = new State(name, position, relative, accepting, initial, label)
-        this.states.push(node); 
+        this.states.push(node);
+        return node;
 	} 
 
 	addArrow(transition) {

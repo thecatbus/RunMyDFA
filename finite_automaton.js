@@ -1,17 +1,19 @@
 class State { 
 	constructor(name=0, 
-		    position=(0, 0), 
+            position=(0, 0), 
 		    relative=(0, "left"), 
 		    accepting=false, 
 		    initial=false,
-		    label="", 
+            label="", 
+            radius=5,
 		    transitions=[]){ 
 		this.name = name;
 		this.position = position; 
 		this.relative = relative;
 		this.accepting = accepting;
 		this.initial = initial;
-		this.label = label; 
+        this.label = label;
+        this.radius = radius; 
 		this.transitions = transitions; 
 	} 
 }

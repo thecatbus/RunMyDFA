@@ -1,9 +1,10 @@
 const ARROWSIZE = 10;
+const RADIUS = 50;
 
 const workspace = document.getElementById('workspace');
 const ctx = workspace.getContext('2d');
 
-ctx.fillStyle = "#00FF00";
+ctx.fillStyle = "#000000";
 ctx.strokeStyle = "#000000";
 ctx.lineWidth = 3;
 
@@ -43,15 +44,11 @@ function draw_arrowhead(context, from, to, radius) {
 function draw_transition(context, transition) {
     console.log(transition.from.position[0], transition.from.position[1]);
     if (transition.to === transition.from) {
-        console.log({ x: transition.to.position.x + 2 * transition.to.radius, y: transition.to.position.y + 2 * transition.to.radius })
-        ctx.strokeStyle = "#0000FF";
+        console.log({ x: transition.to.position.x + 2 * RADIUS, y: transition.to.position.y + 2 * RADIUS })
         context.beginPath();
-        // context.moveTo(transition.from.position.x + transition.to.radius, transition.from.position.y);
-        context.arc(transition.to.position.x + transition.radius, transition.to.position.y + transition.radius, transition.radius, Math.PI*3/2, Math.PI);
-        // context.arcTo(transition.to.position.x + transition.to.radius, transition.to.position.y, transition.to.position.x, transition.to.position.y + transition.radius, transition.radius*Math.sqrt(2));
+        context.arc(transition.to.position.x + RADIUS, transition.to.position.y + RADIUS, RADIUS, Math.PI*3/2, Math.PI);
         context.stroke();
-        ctx.strokeStyle = "#00FF00";
-        draw_arrowhead(context, { x : transition.to.position.x + 2 * transition.to.radius, y : transition.to.position.y }, { x : transition.to.position.x + transition.to.radius, y : transition.to.position.y }, ARROWSIZE);
+        draw_arrowhead(context, { x : transition.to.position.x + 2 * RADIUS, y : transition.to.position.y }, { x : transition.to.position.x + RADIUS, y : transition.to.position.y }, ARROWSIZE);
     } else {
         context.beginPath();
         context.moveTo(transition.from.position.x, transition.from.position.y);
@@ -62,9 +59,11 @@ function draw_transition(context, transition) {
 }
 
 function draw_state(context, state) {
+    ctx.strokeStyle = "#0000FF";
     context.beginPath();
-    context.arc(state.position.x, state.position.y, state.radius, 0, 2 * Math.PI);
+    context.arc(state.position.x, state.position.y, RADIUS, 0, 2 * Math.PI);
     context.stroke();
+    ctx.strokeStyle = "#000000";
 }
 
 function draw_DFA(context, dfa) {
@@ -76,17 +75,17 @@ function draw_DFA(context, dfa) {
     })
 }
 
-// state0 = new State(0, { x: 250, y: 250 }, (0, "none"), true, true, "0", 50, []);
-// state1 = new State(1, { x: 500, y: 250 }, (0, "none"), false, false, "1", 50, []);
-// state2 = new State(2, { x: 750, y: 250 }, (0, "none"), false, false, "2", 50, []);
+state0 = new State(0, { x: 250, y: 250 }, (0, "none"), true, true, "0", []);
+state1 = new State(1, { x: 500, y: 250 }, (0, "none"), false, false, "1", []);
+state2 = new State(2, { x: 750, y: 250 }, (0, "none"), false, false, "2", []);
 
-// transition00 = new Transition(state0, state0, ["0"], "", "0");
-// transition01 = new Transition(state0, state1, ["1"], "", "0");
-// transition12 = new Transition(state1, state2, ["0"], "", "0");
-// transition10 = new Transition(state1, state0, ["1"], "", "1");
-// transition21 = new Transition(state2, state1, ["0"], "", "0");
-// transition22 = new Transition(state2, state2, ["1"], "", "1");
+transition00 = new Transition(state0, state0, ["0"], "", "0");
+transition01 = new Transition(state0, state1, ["1"], "", "0");
+transition12 = new Transition(state1, state2, ["0"], "", "0");
+transition10 = new Transition(state1, state0, ["1"], "", "1");
+transition21 = new Transition(state2, state1, ["0"], "", "0");
+transition22 = new Transition(state2, state2, ["1"], "", "1");
 
-// dfa = new DFA(["0", "1"], [state0, state1, state2], [transition00, transition01, transition12, transition10, transition21, transition22]);
+dfa = new DFA(["0", "1"], [state0, state1, state2], [transition00, transition01, transition12, transition10, transition21, transition22]);
 
-// draw_DFA(ctx, dfa);
+draw_DFA(ctx, dfa);

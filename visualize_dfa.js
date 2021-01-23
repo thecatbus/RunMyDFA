@@ -62,7 +62,6 @@ const RADIUS = 50;
    //      draw_arrowhead(context, transition.to.position, { x: x, y: y }, ARROWSIZE);
   //   }
 // }
-
 function draw_DFA(context, dfa) {
     dfa.states.forEach(state => {
 	    context.add(state.figure());

@@ -5,16 +5,14 @@ class State {
 		    accepting=false, 
 		    initial=true,
             	    label="", 
-            	    radius=25,
 		    transitions=[]){ 
 		this.name = name;
 		this.position = position; 
 		this.relative = relative;
 		this.accepting = accepting;
 		this.initial = initial;
-        this.label = label;
-        this.radius = radius; 
-	this.transitions = transitions; 
+        	this.label = label;
+		this.transitions = transitions; 
 	} 
 }
 

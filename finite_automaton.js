@@ -15,16 +15,32 @@ class State {
 		this.transitions = transitions; 
 	} 
 
-	draw(ctx) {
-		ctx.strokeStyle = "#000000";
-		ctx.beginPath();
-		ctx.arc(this.position.x, this.position.y, 25, 0, 2 * Math.PI);
+	figure() {
+		let innerCircle = new fabric.Circle({
+			radius: 18, 
+			left: 'center', 
+			top: 'center' 
+		});
+
+		let outerCircle = new fabric.Circle({
+			radius: 20, 
+			left: 'center',
+			top: 'center',
+			borderColor: "#000000",
+			hasBorders: true,
+			fill: 'red'
+		});
+
+		let figure = new fabric.Group([outerCircle], {
+			left: this.position.x,
+			top: this.position.y
+		});
 
 		if (this.accepting) {
-			ctx.arc(this.position.x, this.position.y, 22, 0, 2 * Math.PI);
+			figure.add(innerCircle);
 		}
 
-		ctx.stroke();
+		return figure;
 	}
 }
 

@@ -40,7 +40,7 @@ function node_tex(node) {
 	code += "] (" + (node.name) + ") ";
 
 	if (!node.initial) {
-		code += "[" + (node.relative[1]) + " of=" + (node.relative[0].name) + "] ";
+		code += "[" + node.relative.where + " of=" + node.relative.ref.name + "] ";
 	}
 
 	code += "{" + node.label + "};";
@@ -49,13 +49,15 @@ function node_tex(node) {
 }
 
 function arrow_tex(arrow) {
-	code = "(" + arrow.from.name + ") edge " + arrow.bend + " {" + arrow.label + "} "; 
+	code = "(" + arrow.from.name + ") edge [" + arrow.bend + "] {" + arrow.label + "} "; 
 
 	if (arrow.from.name != arrow.to.name) {
 		code += "(" + arrow.to.name + ")";
 	} else {
 		code += "()";
 	}
+
+	return code;
 }
 
 function tex(automaton) {
@@ -75,7 +77,7 @@ function tex(automaton) {
 		code += ";"
 	}
 
-	code += "\\end{tikzautomata}";
+	code += "\n \\end{tikzautomata}";
 
 	return code;
 }

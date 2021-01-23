@@ -1,7 +1,7 @@
 class State { 
 	constructor(name="0", 
             	    position={x: 500, y: 500}, 
-		    relative=(state0, "left"), 
+		    relative={ref: state0, where: "left"}, 
 		    accepting=false, 
 		    initial=true,
             	    label="", 

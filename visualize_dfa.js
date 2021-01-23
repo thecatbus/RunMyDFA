@@ -63,6 +63,7 @@ const RADIUS = 50;
   //   }
 // }
 function draw_DFA(dfa, svg) {
+    console.log(dfa.states);
     dfa.states.forEach(state => {
 	    state.draw(svg);
     })

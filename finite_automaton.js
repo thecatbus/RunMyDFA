@@ -14,6 +14,18 @@ class State {
         	this.label = label;
 		this.transitions = transitions; 
 	} 
+
+	draw(ctx) {
+		ctx.strokeStyle = "#000000";
+		ctx.beginPath();
+		ctx.arc(this.position.x, this.position.y, 25, 0, 2 * Math.PI);
+
+		if (this.accepting) {
+			ctx.arc(this.position.x, this.position.y, 22, 0, 2 * Math.PI);
+		}
+
+		ctx.stroke();
+	}
 }
 
 class Transition {

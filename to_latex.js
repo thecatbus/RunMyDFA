@@ -1,10 +1,10 @@
-function preamble {
+function preamble() {
 	code = `
 
-	\usepackage{tikz} 
+	\\usepackage{tikz} 
 
-	\newenvironment{tikzautomata}{
-		  \begin{tikzpicture}[
+	\\newenvironment{tikzautomata}{
+		  \\begin{tikzpicture}[
 			      baseline = (current bounding box.north),
 			        > = stealth,
 			        shorten > = 1pt,
@@ -13,13 +13,13 @@ function preamble {
 			        on grid,
 			        semithick
 			        ]
-		      \tikzstyle{every state}=[
+		      \\tikzstyle{every state}=[
 			            draw = black,
 			            thick,
 			            fill = white,
 			            minimum size = 5mm
 			            ]}
-	    {\end{tikzpicture}}
+	    {\\end{tikzpicture}}
 
 	    `;
 

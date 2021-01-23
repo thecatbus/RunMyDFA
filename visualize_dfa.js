@@ -1,6 +1,37 @@
 const ARROWSIZE = 10;
+const ARROWLENGTH = 150
 const RADIUS = 50;
 
+function drawState(state) { 
+	if (state.accepting) {
+		var outer = draw.circle(40, {
+			cx : state.position.x, 
+			cy : state.position.y,
+			stroke: "black",
+			fill: "white"});
+
+		var inner = draw.circle(30, { 
+			cx : state.position.x, 
+			cy : state.position.y, 
+			stroke: "black", 
+			fill: "none"}); 
+	} else {
+		var outer = draw.circle(40, {
+			cx : state.position.x, 
+			cy : state.position.y,
+			stroke: "black",
+			fill: "white"});
+	}
+	outer.mouseover(function() {
+		this.radius(25)
+	})
+	outer.mouseout(function() {
+		this.radius(20)
+	})
+	outer.dblclick(function() {
+		nodeInterface(state)
+	})
+}
 // ctx.fillStyle = "#000000";
 // ctx.strokeStyle = "#000000";
 // ctx.lineWidth = 3;
@@ -62,11 +93,9 @@ const RADIUS = 50;
    //      draw_arrowhead(context, transition.to.position, { x: x, y: y }, ARROWSIZE);
   //   }
 // }
-function draw_DFA(dfa, svg) {
-    console.log(dfa.states);
-    dfa.states.forEach(state => {
-	    state.draw(svg);
-    })
+function refresh() {
+	draw.clear(); 
+	myDFA.states.forEach(state => { 
+		drawState(state); 
+	})
 }
-
-

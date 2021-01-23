@@ -1,37 +1,15 @@
-const ARROWLENGTH = 250
-
 class State { 
 	constructor(name="0", 
                	position={x: 500, y: 500}, 
                 relative={ref: state0, where: {left: true, right: false, above: false, below: false}}, 
                 accepting=false, 
-                initial=true,
                 label=""){ 
 		this.name = name;
 		this.position = position; 
 		this.relative = relative;
 		this.accepting = accepting;
-		this.initial = initial;
        	        this.label = label; 
 	} 
-
-	draw(svg) { 
-		this.outer = svg.circle(40, {
-			cx : this.position.x, 
-			cy : this.position.y,
-			stroke: "black",
-			fill: "none"});
-		
-		this.inner = svg.circle(30, { 
-			cx : this.position.x, 
-			cy : this.position.y, 
-			stroke: "black", 
-			fill: "none"});
-
-		this.figure = svg.group();
-		this.figure.add(this.outer);
-		if (this.accepting) {this.figure.add(this.inner);}
-	}
 }
 
 class Transition {
@@ -85,16 +63,16 @@ class Transition {
 }
 
 class Finite_Automaton { 
-	constructor(alphabet=["0", "1"], states=[], transitions=[]){ 
+	constructor(alphabet=["0", "1"], states=[], transitions=[], initial=undefined){ 
 		this.alphabet = alphabet; 
 		this.states = states; 
 		this.transitions = transitions;
+		this.initial = initial;
 	} 
 
     addNode(name = "0",
             relative = { ref: state0, where: { left: true, right: false, above: false, below: false } },
             accepting = false,
-            initial = true,
             label = "") {
         let position = { x: 0, y: 0 }
         if (relative.where.left) position.x = -1;
@@ -106,7 +84,7 @@ class Finite_Automaton {
         console.log(len);
         position.x = ARROWLENGTH * position.x / len + relative.ref.position.x
         position.y = ARROWLENGTH * position.y / len + relative.ref.position.y
-        let node = new State(name, position, relative, accepting, initial, label)
+        let node = new State(name, position, relative, accepting, label)
         this.states.push(node);
         return node;
 	} 

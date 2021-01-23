@@ -1,18 +1,18 @@
 window.addEventListener("load", () =>{
-	var workspace = new fabric.Canvas("workspace")
+	var draw = SVG().addTo('body').size(1000, 800)
+	
+	// var workspace = new fabric.Canvas("workspace");
 
-	state0 = new State("0", {x: workspace.width /2, y: workspace.height /2}, (0, "none"), false, true, "", 25, []);
+	state0 = new State("0", {x: 500, y: 400}, (0, "none"), false, true, "", 25, []);
 	myDFA = new Finite_Automaton(states=[state0]);
-	myDFA.addNode(state0);
+	
+	draw_DFA(myDFA, draw);
 
+	updateDFA(myDFA);
 
-	// updateDFA(myDFA);
+	draw_DFA(myDFA, draw);
 
-	draw_DFA(workspace, myDFA);
-
-	workspace.add(myDFA.states[0].figure());
-
-	console.log(workspace);
+	// console.log(workspace);
 });
 
 function updateDFA(dfa) {

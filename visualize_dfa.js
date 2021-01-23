@@ -66,20 +66,12 @@ function draw_transition(context, transition) {
     }
 }
 
-function draw_state(context, state) {
-    ctx.strokeStyle = "#0000FF";
-    context.beginPath();
-    context.arc(state.position.x, state.position.y, RADIUS, 0, 2 * Math.PI);
-    context.stroke();
-    ctx.strokeStyle = "#000000";
-}
-
 function draw_DFA(context, dfa) {
     dfa.transitions.forEach(transition => {
         draw_transition(context, transition);
     });
     dfa.states.forEach(state => {
-        draw_state(context, state);      
+	    state.draw(context);
     })
 }
 

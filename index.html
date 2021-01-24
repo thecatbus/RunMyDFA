@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>DFA's!</title>
-    <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
+	<meta charset="UTF-8"> 
+	<title>DFA's!</title> 
+	<script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
+	<style> 
+		#overlay {
+			position: fixed;
+			overflow: visible;
+			width: 150px;
+			height: 100%;
+			top: 0;
+			left: 0;
+		}
+	</style>
 </head>
 <body>
+    <div id="overlay"> </div>
+    <script src="panel.js"></script>
     <script src="finite_automaton.js"></script>
     <script src="visualize_dfa.js"></script>
     <script src="to_latex.js"></script>

@@ -93,7 +93,10 @@ function drawState(state) {
    //      draw_arrowhead(context, transition.to.position, { x: x, y: y }, ARROWSIZE);
   //   }
 // }
+// 
+
 function refresh() {
+	defaultPanel();
 	draw.clear(); 
 	myDFA.states.forEach(state => { 
 		drawState(state); 

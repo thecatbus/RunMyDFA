@@ -161,7 +161,7 @@ function drawTransition(transition) {
         y3 = to.position.y - RADIUS * Math.sin(angle);
         line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
     }
-
+    angle = Math.atan2(to.position.y - y3, to.position.x - x3);
     head = figure.image('./img/arrow.svg');
     head.transform({ scale: 3, tx: x3, ty: y3, rotate: 180 * angle / Math.PI});
     var w = 5;

@@ -46,7 +46,7 @@ function drawState(state) {
                     nodeInterface(state);
                     selected = state;
                 } else {
-                    myDFA.addArrow(new Transition(selected, state, [], "bend right", label));
+                    myDFA.addArrow(new Transition(selected, state, [], "", label));
                     refresh();
                 }
             }
@@ -183,7 +183,7 @@ function drawTransition(transition) {
         line.stroke({ width: 1.5 });
         document.body.style.cursor = "default";
     })
-    figure.dblclick(function () {
+    figure.click(function () {
         arrowInterface(transition);
     })
 
@@ -193,10 +193,14 @@ function drawTransition(transition) {
 
 }
 
-function refresh() {
-	defaultPanel();
+function refreshDrawing() {
     draw.clear();
     selected = false;
 	myDFA.transitions.forEach(transition => {drawTransition(transition);})
 	myDFA.states.forEach(state => {drawState(state);})
+}
+
+function refresh(){
+	defaultPanel();
+	refreshDrawing();
 }

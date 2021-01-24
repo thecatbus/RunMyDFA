@@ -30,6 +30,44 @@ class Transition {
 		this.bend = bend;
 		this.label = label;
     }
+	bendleft(){
+		if (this.bend === "bend right") {
+			this.bend = "";
+		} else if (this.bend === "") {
+			this.bend = "bend left";
+		} else if (this.bend === "loop above") {
+			this.bend = "loop right";
+		} else if (this.bend === "loop right") {
+			this.bend = "loop below";
+		} else if (this.bend === "loop below") {
+			this.bend = "loop left";
+		} else if (this.bend === "loop left") {
+			this.bend = "loop above";
+		} else {}
+
+
+	}
+
+	bendright(){
+		if (this.bend === "bend left") {
+			this.bend = "";
+		} else if (this.bend === "") {
+			this.bend = "bend right";
+		} else if (this.bend === "loop above") {
+			this.bend = "loop left";
+		} else if (this.bend === "loop left") {
+			this.bend = "loop below";
+		} else if (this.bend === "loop below") {
+			this.bend = "loop right";
+		} else if (this.bend === "loop right") {
+			this.bend = "loop above";
+		} else {}
+	}
+
+	switchlabels(string){
+		this.label = string; 
+		this.args = string.split(",");
+	}
 }
 
 class Finite_Automaton { 

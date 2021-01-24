@@ -39,11 +39,13 @@ function drawState(state) {
                 selected = false;
                 refresh();
             } else {
-                myDFA.addArrow(new Transition(selected, state, [], "", ""));
+                myDFA.addArrow(new Transition(selected, state, [], "", "a"));
+                refresh();
             }
+        } else {
+            nodeInterface(state);
+            selected = state;
         }
-        nodeInterface(state)
-        selected = state;
 	})
 }
 
@@ -61,6 +63,8 @@ function drawTransition(transition) {
     var y22;
     var y2;
     var y3;
+    var xmid;
+    var ymid;
     var line;
     var angle;
     if (transition.bend === "loop above") { 
@@ -72,6 +76,8 @@ function drawTransition(transition) {
 	    y22 = to.position.y - 5 * RADIUS;
         x3 = to.position.x - RADIUS * Math.sin(LOOPROT);
         y3 = to.position.y - RADIUS * Math.cos(LOOPROT);
+        xmid = to.position.x;
+        ymid = to.position.y + 2 * RADIUS;
         line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
         angle = -LOOPROT + Math.PI/2;
     } else if (transition.bend === "loop below") {
@@ -83,6 +89,8 @@ function drawTransition(transition) {
 	    y22 = to.position.y + 5 * RADIUS;
         x3 = to.position.x + RADIUS * Math.sin(LOOPROT);
         y3 = to.position.y + RADIUS * Math.cos(LOOPROT);
+        xmid = to.position.x;
+        ymid = to.position.y + 2 * RADIUS;
         line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
         angle = -LOOPROT - Math.PI / 2;
     } else if (transition.bend === "loop left") {
@@ -94,6 +102,8 @@ function drawTransition(transition) {
 	    y22 = to.position.y + 2 * RADIUS;
         x3 = to.position.x - RADIUS * Math.cos(LOOPROT);
         y3 = to.position.y + RADIUS * Math.sin(LOOPROT);
+        xmid = to.position.x - 2 * RADIUS;
+        ymid = to.position.y;
         line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
         angle = -LOOPROT;
     } else if (transition.bend === "loop right") {
@@ -105,6 +115,8 @@ function drawTransition(transition) {
 	    y22 = to.position.y - 2 * RADIUS;
         x3 = to.position.x + RADIUS * Math.cos(LOOPROT);
         y3 = to.position.y - RADIUS * Math.sin(LOOPROT);
+        xmid = to.position.x + 2 * RADIUS;
+        ymid = to.position.y;
         line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
         angle = -LOOPROT + Math.PI;
     } else if (transition.bend === "bend left") {
@@ -146,7 +158,6 @@ function drawTransition(transition) {
     head.transform({ scale: 3, tx: x3, ty: y3, rotate: 180 * angle / Math.PI});
     var w = 5;
     var h = 6;
-    console.log(Math.sin(angle), Math.cos(angle))
     head.dmove(-w/2, -h/2);
     figure.mouseover(function () {
         line.stroke({width : 4});
@@ -158,6 +169,10 @@ function drawTransition(transition) {
     })
     figure.dblclick(function () {
         arrowInterface(transition);
+    })
+    var label = figure.text(transition.label, {
+        x: xmid-3,
+        y: ymid-18,
     })
 }
 

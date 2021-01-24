@@ -23,31 +23,30 @@ function drawState(state) {
 			cy : state.position.y, 
 			stroke: "black", 
 			fill: "none"}); }
+
 	var label = figure.text(state.label, {
 			x: state.position.x -3,
 			y: state.position.y -15})
 
-    figure.mouseover(function () {
-        outer.stroke({ width: 2.5 });
+    	figure.mouseover(function () {
+       		 outer.stroke({ width: 2.5 });
 		document.body.style.cursor = "pointer"; })
+
 	figure.mouseout(function() {
-    outer.stroke({ width: 1.5 });
-    document.body.style.cursor = "default"; })
-    figure.click(function() {
-        if (selected) {
-            if (selected === state) {
-                selected = false;
-                refresh();
-            } else {
-                myDFA.addArrow(new Transition(selected, state, [], "", "a"));
-                refresh();
-            }
-        } else {
-            nodeInterface(state);
-            selected = state;
-        }
-	})
-}
+    		outer.stroke({ width: 1.5 });
+    		document.body.style.cursor = "default"; })
+
+   	figure.click(function() { 
+		if (selected) {
+			if (selected === state) { 
+				selected = false; 
+				refresh(); 
+			} else { 
+				myDFA.addArrow(new Transition(selected, state, [], "", "a"));
+				refresh(); 
+			} } else { 
+				nodeInterface(state); 
+				selected = state;}})}
 
 function drawTransition(transition) {
     var figure = draw.group();
@@ -170,10 +169,10 @@ function drawTransition(transition) {
     figure.dblclick(function () {
         arrowInterface(transition);
     })
-    var label = figure.text(transition.label, {
-        x: xmid-3,
-        y: ymid-18,
-    })
+
+	var point = line.pointAt(line.length() / 2);
+    	var label = figure.text(transition.label);  
+	label.center(point.x + 15*Math.sin(angle),point.y-15*Math.cos(angle));
 }
 
 function refresh() {

@@ -146,11 +146,11 @@ function drawTransition(transition) {
     console.log(Math.sin(angle), Math.cos(angle))
     head.dmove(-w/2, -h/2);
     figure.mouseover(function () {
-        line.stroke({width : 2});
+        line.stroke({width : 4});
         document.body.style.cursor = "pointer";
     })
     figure.mouseout(function () {
-        line.stroke({ width: 1 });
+        line.stroke({ width: 1.5 });
         document.body.style.cursor = "default";
     })
     figure.dblclick(function () {

@@ -33,12 +33,15 @@ function drawState(state) {
 	figure.mouseout(function() {
     outer.stroke({ width: 1.5 });
     document.body.style.cursor = "default"; })
-    figure.click(function() {
+    figure.dblclick(function() {
         if (selected) {
-            myDFA.addArrow(new Transition(selected, state, [], "", ""));
+            if (selected === state) {
+                selected = false;
+                refresh();
+            } else {
+                myDFA.addArrow(new Transition(selected, state, [], "", ""));
+            }
         }
-    })
-	figure.dblclick(function() {
         nodeInterface(state)
         selected = state;
 	})

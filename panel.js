@@ -52,25 +52,25 @@ function startPanel(node) {
 		var above = button(4, "above", function() {
 			var label = prompt("Enter symbols for this transition", "");
 			var args = label.split(",");
-			var arrow = new Transition (state0, state0, args, "loop above", label);
+			var arrow = new Transition (node, node, args, "loop above", label);
 			myDFA.transitions.push(arrow);
 			refresh();});
 		var below = button(5, "below", function() {
 			var label = prompt("Enter symbols for this transition", "");
 			var args = label.split(",");
-			var arrow = new Transition (state0, state0, args, "loop below", label);
+			var arrow = new Transition (node, node, args, "loop below", label);
 			myDFA.transitions.push(arrow); 
 			refresh();});
 		var left = button(6, "left", function() {
 			var label = prompt("Enter symbols for this transition", "");
 			var args = label.split(",");
-			var arrow = new Transition (state0, state0, args, "loop left", label);
+			var arrow = new Transition (node, node, args, "loop left", label);
 			myDFA.transitions.push(arrow); 
 			refresh();});
 		var right = button(7, "right", function() {
 			var label = prompt("Enter symbols for this transition", "");
 			var args = label.split(",");
-			var arrow = new Transition (state0, state0, args, "loop right", label);
+			var arrow = new Transition (node, node, args, "loop right", label);
 			myDFA.transitions.push(arrow); 
 			refresh();}); 
 	});

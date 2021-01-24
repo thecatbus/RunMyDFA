@@ -76,7 +76,7 @@ function drawTransition(transition) {
         x3 = to.position.x - RADIUS * Math.sin(LOOPROT);
         y3 = to.position.y - RADIUS * Math.cos(LOOPROT);
         xmid = to.position.x;
-        ymid = to.position.y + 2 * RADIUS;
+        ymid = to.position.y - 4 * RADIUS;
         line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
         angle = -LOOPROT + Math.PI/2;
     } else if (transition.bend === "loop below") {
@@ -89,7 +89,7 @@ function drawTransition(transition) {
         x3 = to.position.x + RADIUS * Math.sin(LOOPROT);
         y3 = to.position.y + RADIUS * Math.cos(LOOPROT);
         xmid = to.position.x;
-        ymid = to.position.y + 2 * RADIUS;
+        ymid = to.position.y + 4 * RADIUS;
         line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
         angle = -LOOPROT - Math.PI / 2;
     } else if (transition.bend === "loop left") {
@@ -101,7 +101,7 @@ function drawTransition(transition) {
 	    y22 = to.position.y + 2 * RADIUS;
         x3 = to.position.x - RADIUS * Math.cos(LOOPROT);
         y3 = to.position.y + RADIUS * Math.sin(LOOPROT);
-        xmid = to.position.x - 2 * RADIUS;
+        xmid = to.position.x - 4 * RADIUS;
         ymid = to.position.y;
         line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
         angle = -LOOPROT;
@@ -114,7 +114,7 @@ function drawTransition(transition) {
 	    y22 = to.position.y - 2 * RADIUS;
         x3 = to.position.x + RADIUS * Math.cos(LOOPROT);
         y3 = to.position.y - RADIUS * Math.sin(LOOPROT);
-        xmid = to.position.x + 2 * RADIUS;
+        xmid = to.position.x + 4 * RADIUS;
         ymid = to.position.y;
         line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
         angle = -LOOPROT + Math.PI;
@@ -173,6 +173,7 @@ function drawTransition(transition) {
 	var point = line.pointAt(line.length() / 2);
     	var label = figure.text(transition.label);  
 	label.center(point.x + 15*Math.sin(angle),point.y-15*Math.cos(angle));
+
 }
 
 function refresh() {

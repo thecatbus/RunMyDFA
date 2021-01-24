@@ -1,17 +1,32 @@
 function panelrefresh() {
 	panel.clear(); 
+
 	var background = panel.rect(250, height, {
 		fill: 'black',
 		'fill-opacity':0.6});
-	var creds = button(16, "Fox and Parth @71springs", function() {});
-	var github = button(17, "Github", function() {window.open("https://github.com/bognovogomira/RunMyDFA")});
+	var creds = button(12, "Fox and Parth @71springs", function() {});
+	var github = button(13, "Github", function() {window.open("https://github.com/bognovogomira/RunMyDFA")});
+
+	var runtext = panel.text("run", {x:0, y:-7, fill: "#999999"});
+	runtext.font({
+		family: 'Menlo',
+		size: 50});
+	var mytext = panel.text("my", {x:65, y:-20, fill: '#B2B2B2'});
+	mytext.font({
+		family: 'Menlo',
+		size: 90});
+
+	var dfatext = panel.text("DFA", {x:0, y:30, fill: "white"});
+	dfatext.font({
+		family: 'Menlo',
+		size: 125});
 }
 
 function button(number, text, effect) {
 	var button = panel.group()
 	var box = button.rect(250, 30, {
 		x: 0,
-		y: number * 30 + 105,
+		y: number * 30 + 225,
 		fill: "black",
 		'fill-opacity' :0});
 	box.mouseover(function() {
@@ -26,7 +41,7 @@ function button(number, text, effect) {
 
 	var text = button.text(text, {
 		x: 10,
-		y: number * 30 + 105,
+		y: number * 30 + 225,
 		fill: 'white'});
 	text.font({
 		family: 'Menlo'});
@@ -77,7 +92,7 @@ function startPanel(node) {
 			myDFA.transitions.push(arrow); 
 			refresh();}); 
 	});
-	var goback = button(10, "Back to previous menu", function() {
+	var goback = button(11, "Back to previous menu", function() {
 		refresh();});
 }
 
@@ -97,7 +112,7 @@ function toArrowInterface(transition) {
 		transition.del();
 		refreshDrawing();
 	});
-	var goback = button(10, "Back to previous menu", function() {
+	var goback = button(11, "Back to previous menu", function() {
 		refresh();});
 }
 
@@ -117,7 +132,7 @@ function selfArrowInterface(transition) {
 		transition.del();
 		refreshDrawing();
 	});
-	var goback = button(10, "Back to previous menu", function() {
+	var goback = button(11, "Back to previous menu", function() {
 		refresh();});
 }
 

@@ -6,7 +6,7 @@ var draw = SVG().addTo('body').size(5000,5000);
 var panel = SVG().addTo('#overlay').size(250,height);
 
 state0 = new State("0", {x: 2500, y: 2500}, {ref: undefined, where: {left: false, right: false, above: false, below: false}}, false, "", 25, []);
-myDFA = new Finite_Automaton(["0", "1"], [state0], [], state0);
+myDFA = new Finite_Automaton([state0], [], state0);
 
 refresh();
 

@@ -5,7 +5,7 @@ const LOOPROT = 0.5;
 const ARROWSCALE = 3;
 const ARROWWIDTH = 2.83;
 const ARROWHEIGHT = 5.98;
-const INITLENGTH = 20;
+const INITLENGTH = 40;
 
 var selected = false;
 
@@ -14,9 +14,8 @@ function drawInitial(state) {
     var line = figure.line(state.position.x - RADIUS - INITLENGTH, state.position.y, state.position.x - RADIUS, state.position.y, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
     var head = figure.image("./img/arrow.svg");
     head.transform({ scale: 3, tx: state.position.x - RADIUS - 7, ty: state.position.y - 9});
-    var label = figure.text("START");
-    label.center(state.position.x - RADIUS - INITLENGTH- 25, state.position.y);
-
+    var label = figure.text("Start");
+    label.center(state.position.x - RADIUS - INITLENGTH- 20, state.position.y);
 }
 
 function drawState(state) { 

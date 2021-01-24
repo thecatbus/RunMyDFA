@@ -3,13 +3,14 @@ function panelrefresh() {
 	var background = panel.rect(250, height, {
 		fill: 'black',
 		'fill-opacity':0.6});
+	var creds = button(10, "Github", function() {window.open("https://github.com/bognovogomira/RunMyDFA")});
 }
 
 function button(number, text, effect) {
 	var button = panel.group()
 	var box = button.rect(250, 30, {
 		x: 0,
-		y: number * 30 + 100, 
+		y: 100 + 30 * number,
 		fill: "black",
 		'fill-opacity' :0});
 	box.mouseover(function() {
@@ -110,13 +111,11 @@ function selfArrowInterface(transition) {
 
 function defaultPanel() {
 	panelrefresh();
-	var changeAlph = button(0, "Change alphabet", function() {
-	 	alert("Not yet implemented"); });
-	var getTex = button(1, "Generate LaTeX", function() {
+	var getTex = button(0, "Generate LaTeX", function() {
 		prompt("Remember to add preamble!", tex(myDFA))});
-	var pream = button(2, "View LaTeX preamble", function() {
+	var pream = button(1, "View LaTeX preamble", function() {
 		prompt("Copy this at the start of your TeX file.", preamble())});
-	var center = button(3, "Center screen", function() {
+	var center = button(2, "Center screen", function() {
 		window.scroll(2500-width/2, 2500-height/2); });
 }
 

@@ -71,8 +71,7 @@ class Transition {
 }
 
 class Finite_Automaton { 
-	constructor(alphabet=["0", "1"], states=[], transitions=[], initial=undefined){ 
-		this.alphabet = alphabet; 
+	constructor(states=[], transitions=[], initial=undefined){ 
 		this.states = states; 
 		this.transitions = transitions;
 		this.initial = initial;

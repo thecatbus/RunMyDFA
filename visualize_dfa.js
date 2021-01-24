@@ -59,50 +59,73 @@ function drawTransition(transition) {
         y21 = to.position.y - 5 * RADIUS;
 	    x22 = to.position.x - 2 * RADIUS;
 	    y22 = to.position.y - 5 * RADIUS;
-        x3 = to.position.x - RADIUS * Math.sin(LOOPROT);
-        y3 = to.position.y - RADIUS * Math.cos(LOOPROT);
-        angle = -LOOPROT + Math.PI/2;
-    } else if (transition.bend === "loop below") {
-        x1 = to.position.x - RADIUS * Math.sin(LOOPROT);
-        y1 = to.position.y + RADIUS * Math.cos(LOOPROT);
-        x21 = to.position.x - 2 * RADIUS;
-        y21 = to.position.y + 5 * RADIUS;
+            x3 = to.position.x - RADIUS * Math.sin(LOOPROT);
+            y3 = to.position.y - RADIUS * Math.cos(LOOPROT);
+       	    line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' });
+        } else if (transition.bend === "loop below") {
+            x1 = to.position.x - RADIUS * Math.sin(LOOPROT);
+            y1 = to.position.y + RADIUS * Math.cos(LOOPROT);
+            x21 = to.position.x - 2 * RADIUS;
+            y21 = to.position.y + 5 * RADIUS;
 	    x22 = to.position.x + 2 * RADIUS;
 	    y22 = to.position.y + 5 * RADIUS;
-        x3 = to.position.x + RADIUS * Math.sin(LOOPROT);
-        y3 = to.position.y + RADIUS * Math.cos(LOOPROT);
-        angle = -LOOPROT - Math.PI / 2;
-    } else if (transition.bend === "loop left") {
-        x1 = to.position.x - RADIUS * Math.cos(LOOPROT);
-        y1 = to.position.y - RADIUS * Math.sin(LOOPROT);
-        x21 = to.position.x - 5 * RADIUS;
-        y21 = to.position.y - 2 * RADIUS;
+            x3 = to.position.x + RADIUS * Math.sin(LOOPROT);
+            y3 = to.position.y + RADIUS * Math.cos(LOOPROT);
+       	    line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' });
+        } else if (transition.bend === "loop left") {
+            x1 = to.position.x - RADIUS * Math.cos(LOOPROT);
+            y1 = to.position.y - RADIUS * Math.sin(LOOPROT);
+       	    x21 = to.position.x - 5 * RADIUS;
+            y21 = to.position.y - 2 * RADIUS;
 	    x22 = to.position.x - 5 * RADIUS;
 	    y22 = to.position.y + 2 * RADIUS;
-        x3 = to.position.x - RADIUS * Math.cos(LOOPROT);
-        y3 = to.position.y + RADIUS * Math.sin(LOOPROT);
-        angle = -LOOPROT;
-    } else if (transition.bend === "loop right") {
-        x1 = to.position.x + RADIUS * Math.cos(LOOPROT);
-        y1 = to.position.y + RADIUS * Math.sin(LOOPROT);
-        x21 = to.position.x + 5 * RADIUS;
-        y21 = to.position.y + 2 * RADIUS;
+            x3 = to.position.x - RADIUS * Math.cos(LOOPROT);
+            y3 = to.position.y + RADIUS * Math.sin(LOOPROT);
+       	    line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' });
+        } else if (transition.bend === "loop right") {
+            x1 = to.position.x + RADIUS * Math.cos(LOOPROT);
+            y1 = to.position.y + RADIUS * Math.sin(LOOPROT);
+       	    x21 = to.position.x + 5 * RADIUS;
+            y21 = to.position.y + 2 * RADIUS;
 	    x22 = to.position.x + 5 * RADIUS;
 	    y22 = to.position.y - 2 * RADIUS;
-        x3 = to.position.x + RADIUS * Math.cos(LOOPROT);
-        y3 = to.position.y - RADIUS * Math.sin(LOOPROT);
-        angle = -LOOPROT + Math.PI;
-    } else { 
-        angle = Math.atan2(to.position.y - from.position.y, to.position.x - from.position.x)
-        x1 = from.position.x + (RADIUS + ARROWSIZE) * Math.cos(angle);
-        y1 = from.position.y + (RADIUS + ARROWSIZE) * Math.sin(angle);
-        x3 = to.position.x - (RADIUS + ARROWSIZE) * Math.cos(angle);
-        y3 = to.position.y - (RADIUS + ARROWSIZE) * Math.sin(angle);
-        x21 = (2*x1 + x3) / 3.;
-        y21 = (2*y1 + y3) / 3.;
-        x22 = (x1 + 2*x3) / 3.;
-        y22 = (y1 + 2*y3) / 3.;
-    }
+            x3 = to.position.x + RADIUS * Math.cos(LOOPROT);
+            y3 = to.position.y - RADIUS * Math.sin(LOOPROT);
+       	    line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' });
+        } else if (transition.bend === "bend left") { 
+	    var angle = Math.atan2( to.position.y - from.position.y, to.position.x - from.position.x);
+	    xmid = (to.position.x + from.position.x) / 2 
+	    ymid = (to.position.y + from.position.y) / 2 
+            x1 = from.position.x + RADIUS * Math.cos(angle- (Math.PI/4)); 
+            y1 = from.position.y + RADIUS * Math.sin(angle- (Math.PI/4));
+       	    x2 = xmid + 3 * RADIUS * Math.cos(angle - (Math.PI/2));
+            y2 = ymid + 3 * RADIUS * Math.sin(angle - (Math.PI/2));
+            x3 = to.position.x + RADIUS * Math.cos(angle- 3*(Math.PI/4));
+            y3 = to.position.y + RADIUS * Math.sin(angle- 3*(Math.PI/4));
+       	    line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' }); } 
+	else if (transition.bend === "bend right") { 
+	    var angle = Math.atan2( to.position.y - from.position.y, to.position.x - from.position.x);
+	    xmid = (to.position.x + from.position.x) / 2 
+	    ymid = (to.position.y + from.position.y) / 2 
+            x1 = from.position.x + RADIUS * Math.cos(angle+ (Math.PI/4)); 
+            y1 = from.position.y + RADIUS * Math.sin(angle+ (Math.PI/4));
+       	    x2 = xmid + 3 * RADIUS * Math.cos(angle + (Math.PI/2));
+            y2 = ymid + 3 * RADIUS * Math.sin(angle + (Math.PI/2));
+            x3 = to.position.x + RADIUS * Math.cos(angle+ 3*(Math.PI/4));
+            y3 = to.position.y + RADIUS * Math.sin(angle+ 3*(Math.PI/4));
+       	    line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' }); } 
+	else {
+	    var angle = Math.atan2( to.position.y - from.position.y, to.position.x - from.position.x);
+	    xmid = (to.position.x + from.position.x) / 2 
+	    ymid = (to.position.y + from.position.y) / 2 
+            x1 = from.position.x + RADIUS * Math.cos(angle); 
+            y1 = from.position.y + RADIUS * Math.sin(angle);
+       	    x2 = xmid 
+            y2 = ymid 
+            x3 = to.position.x - RADIUS * Math.cos(angle);
+            y3 = to.position.y - RADIUS * Math.sin(angle);
+       	    line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' }); }
+
     line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' });
     head = figure.image('/img/arrow.svg');
     head.transform({ scale: 3, tx: x3, ty: y3, rotate: 180 * angle / Math.PI});

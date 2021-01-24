@@ -39,8 +39,14 @@ function drawState(state) {
                 selected = false;
                 refresh();
             } else {
-                myDFA.addArrow(new Transition(selected, state, [], "", "a"));
-                refresh();
+                var label = prompt("Enter a label for this transition (leave empty to make no transition)");
+                if (label === "") {
+                    nodeInterface(state);
+                    selected = state;
+                } else {
+                    myDFA.addArrow(new Transition(selected, state, [], "bend right", label));
+                    refresh();
+                }
             }
         } else {
             nodeInterface(state);

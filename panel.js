@@ -9,16 +9,16 @@ function panelrefresh() {
 
 	var runtext = panel.text("run", {x:0, y:-7, fill: "#999999"});
 	runtext.font({
-		family: 'Menlo',
+		family: 'Monaco',
 		size: 50});
 	var mytext = panel.text("my", {x:65, y:-20, fill: '#B2B2B2'});
 	mytext.font({
-		family: 'Menlo',
+		family: 'Monaco',
 		size: 90});
 
 	var dfatext = panel.text("DFA", {x:0, y:30, fill: "white"});
 	dfatext.font({
-		family: 'Menlo',
+		family: 'Monaco',
 		size: 125});
 }
 
@@ -44,7 +44,7 @@ function button(number, text, effect) {
 		y: number * 30 + 225,
 		fill: 'white'});
 	text.font({
-		family: 'Menlo'});
+		family: 'Monaco'});
 	text.mouseover(function() {
 		box.attr({fill: "#7f7f7f",
 			   'fill-opacity': 0.3});

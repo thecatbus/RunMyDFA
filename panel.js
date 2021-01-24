@@ -3,14 +3,15 @@ function panelrefresh() {
 	var background = panel.rect(250, height, {
 		fill: 'black',
 		'fill-opacity':0.6});
-	var creds = button(17, "Github", function() {window.open("https://github.com/bognovogomira/RunMyDFA")});
+	var creds = button(16, "Fox and Parth @71springs", function() {});
+	var github = button(17, "Github", function() {window.open("https://github.com/bognovogomira/RunMyDFA")});
 }
 
 function button(number, text, effect) {
 	var button = panel.group()
 	var box = button.rect(250, 30, {
 		x: 0,
-		y: number * 30 + 100,
+		y: number * 30 + 105,
 		fill: "black",
 		'fill-opacity' :0});
 	box.mouseover(function() {
@@ -25,7 +26,7 @@ function button(number, text, effect) {
 
 	var text = button.text(text, {
 		x: 10,
-		y: number * 30 + 100,
+		y: number * 30 + 105,
 		fill: 'white'});
 	text.font({
 		family: 'Menlo'});

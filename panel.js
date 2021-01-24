@@ -3,14 +3,14 @@ function panelrefresh() {
 	var background = panel.rect(250, height, {
 		fill: 'black',
 		'fill-opacity':0.6});
-	var creds = button(10, "Github", function() {window.open("https://github.com/bognovogomira/RunMyDFA")});
+	var creds = button(17, "Github", function() {window.open("https://github.com/bognovogomira/RunMyDFA")});
 }
 
 function button(number, text, effect) {
 	var button = panel.group()
 	var box = button.rect(250, 30, {
 		x: 0,
-		y: 100 + 30 * number,
+		y: number * 30 + 100,
 		fill: "black",
 		'fill-opacity' :0});
 	box.mouseover(function() {

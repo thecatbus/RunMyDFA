@@ -33,20 +33,29 @@ function drawState(state) {
 		document.body.style.cursor = "pointer"; })
 
 	figure.mouseout(function() {
-    		outer.stroke({ width: 1.5 });
-    		document.body.style.cursor = "default"; })
-
-   	figure.click(function() { 
-		if (selected) {
-			if (selected === state) { 
-				selected = false; 
-				refresh(); 
-			} else { 
-				myDFA.addArrow(new Transition(selected, state, [], "", "a"));
-				refresh(); 
-			} } else { 
-				nodeInterface(state); 
-				selected = state;}})}
+    outer.stroke({ width: 1.5 });
+    document.body.style.cursor = "default"; })
+    figure.click(function() {
+        if (selected) {
+            if (selected === state) {
+                selected = false;
+                refresh();
+            } else {
+                var label = prompt("Enter a label for this transition (leave empty to make no transition)");
+                if (label === "") {
+                    nodeInterface(state);
+                    selected = state;
+                } else {
+                    myDFA.addArrow(new Transition(selected, state, [], "bend right", label));
+                    refresh();
+                }
+            }
+        } else {
+            nodeInterface(state);
+            selected = state;
+        }
+	})
+}
 
 function drawTransition(transition) {
     var figure = draw.group();
@@ -160,7 +169,7 @@ function drawTransition(transition) {
         y3 = to.position.y - RADIUS * Math.sin(angle);
         line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
     }
-
+    angle = Math.atan2(to.position.y - y3, to.position.x - x3);
     head = figure.image('./img/arrow.svg');
     head.transform({ scale: 3, tx: x3, ty: y3, rotate: 180 * angle / Math.PI});
     var w = 5;

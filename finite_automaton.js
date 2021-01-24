@@ -84,7 +84,7 @@ class Finite_Automaton {
 	    let node = new State(name, newposition, relative, accepting, label)
         this.states.push(node); 
         this.addArrow(new Transition(relative.ref, node, [], "" , "hi"));
-	    return node;
+	return node;
 	} 
 
 	addArrow(transition) {

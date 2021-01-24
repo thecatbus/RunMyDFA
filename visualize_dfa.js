@@ -2,6 +2,10 @@ const ARROWSIZE = 0;
 const ARROWLENGTH = 150
 const RADIUS = 20;
 const LOOPROT = 0.5;
+const ARROWSCALE = 3;
+const ARROWWIDTH = 2.83;
+const ARROWHEIGHT = 5.98;
+
 
 function drawState(state) { 
 	var figure = draw.group();
@@ -37,17 +41,22 @@ function drawTransition(transition) {
     var to = transition.to;
     var from = transition.from;
     var x1;
+    var x21;
+    var x22;
     var x2;
     var x3;
     var y1;
+    var y21;
+    var y22;
     var y2;
     var y3;
     var line;
+    var angle;
     if (transition.bend === "loop above") { 
 	    x1 = to.position.x + RADIUS * Math.sin(LOOPROT);
-            y1 = to.position.y - RADIUS * Math.cos(LOOPROT);
-            x21 = to.position.x + 2 * RADIUS;
-            y21 = to.position.y - 5 * RADIUS;
+        y1 = to.position.y - RADIUS * Math.cos(LOOPROT);
+        x21 = to.position.x + 2 * RADIUS;
+        y21 = to.position.y - 5 * RADIUS;
 	    x22 = to.position.x - 2 * RADIUS;
 	    y22 = to.position.y - 5 * RADIUS;
             x3 = to.position.x - RADIUS * Math.sin(LOOPROT);
@@ -93,7 +102,8 @@ function drawTransition(transition) {
             y2 = ymid + 3 * RADIUS * Math.sin(angle - (Math.PI/2));
             x3 = to.position.x + RADIUS * Math.cos(angle- 3*(Math.PI/4));
             y3 = to.position.y + RADIUS * Math.sin(angle- 3*(Math.PI/4));
-       	    line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' }); } else if (transition.bend === "bend right") { 
+       	    line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' }); } 
+	else if (transition.bend === "bend right") { 
 	    var angle = Math.atan2( to.position.y - from.position.y, to.position.x - from.position.x);
 	    xmid = (to.position.x + from.position.x) / 2 
 	    ymid = (to.position.y + from.position.y) / 2 
@@ -103,7 +113,8 @@ function drawTransition(transition) {
             y2 = ymid + 3 * RADIUS * Math.sin(angle + (Math.PI/2));
             x3 = to.position.x + RADIUS * Math.cos(angle+ 3*(Math.PI/4));
             y3 = to.position.y + RADIUS * Math.sin(angle+ 3*(Math.PI/4));
-       	    line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' }); } else {
+       	    line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' }); } 
+	else {
 	    var angle = Math.atan2( to.position.y - from.position.y, to.position.x - from.position.x);
 	    xmid = (to.position.x + from.position.x) / 2 
 	    ymid = (to.position.y + from.position.y) / 2 
@@ -115,6 +126,20 @@ function drawTransition(transition) {
             y3 = to.position.y - RADIUS * Math.sin(angle);
        	    line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' }); }
 
+    line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' });
+    head = figure.image('/img/arrow.svg');
+    head.transform({ scale: 3, tx: x3, ty: y3, rotate: 180 * angle / Math.PI});
+    // head.center(x3, y3);
+    // head.rotate(180*angle/Math.PI, head.cx(), head.cy());
+    var w = 5;
+    var h = 6;
+    // console.log(w, h);
+    console.log(Math.sin(angle), Math.cos(angle))
+    // console.log(w * Math.cos(angle) - h * Math.sin(angle), h * Math.cos(angle) + w * Math.sin(angle))
+    // head.dmove(+ h/2 * Math.sin(angle), - h/2 * Math.cos(angle))
+    head.dmove(-w/2, -h/2);
+    // head.scale(ARROWSCALE, x3, y3);
+    
 }
 
 

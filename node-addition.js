@@ -35,8 +35,8 @@ function addghost(node, where) {
 	
 
 function nodeInterface(node) {
+	refresh();
 	startPanel(node);
-
 	var above = addghost(node, {left: false, right: false, above: true, below: false});
 	var below = addghost(node, {left: false, right: false, above: false, below: true});
 	var left = addghost(node, {left: true, right: false, above: false, below: false});

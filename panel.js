@@ -90,7 +90,12 @@ function toArrowInterface(transition) {
 		refreshDrawing(); });
 	var change = button(2, "Change label", function() {
 		transition.switchlabels(prompt("Enter new label", transition.label))
-		refreshDrawing(); });
+		refreshDrawing();
+	});
+	var change = button(3, "Delete", function () {
+		transition.del();
+		refreshDrawing();
+	});
 	var goback = button(10, "Back to previous menu", function() {
 		refresh();});
 }
@@ -105,7 +110,12 @@ function selfArrowInterface(transition) {
 		refreshDrawing(); });
 	var change = button(2, "Change label", function() {
 		transition.switchlabels(prompt("Enter new label", transition.label))
-		refreshDrawing(); });
+		refreshDrawing();
+	});
+	var change = button(3, "Delete", function () {
+		transition.del();
+		refreshDrawing();
+	});
 	var goback = button(10, "Back to previous menu", function() {
 		refresh();});
 }

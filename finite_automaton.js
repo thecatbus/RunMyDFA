@@ -8,14 +8,13 @@ class State {
 		this.position = position; 
 		this.relative = relative;
 		this.accepting = accepting;
-       	        this.label = label; 
+        this.label = label; 
 	} 
 
 	isNotAnchor() {
 		var notanchor = this.relative.where.left || this.relative.where.right || this.relative.where.above || this.relative.where.below;
 		return notanchor; 
-	}
-
+    }
 }
 
 class Transition {
@@ -44,8 +43,6 @@ class Transition {
 		} else if (this.bend === "loop left") {
 			this.bend = "loop above";
 		} else {}
-
-
 	}
 
 	bendright(){
@@ -67,11 +64,15 @@ class Transition {
 	switchlabels(string){
 		this.label = string; 
 		this.args = string.split(",");
-	}
+    }
+    
+    del() {
+        myDFA.transitions.splice(myDFA.transitions.indexOf(this));
+    }
 }
 
 class Finite_Automaton { 
-	constructor(states=[], transitions=[], initial=undefined){ 
+	constructor(states=[], transitions=[], initial=false){ 
 		this.states = states; 
 		this.transitions = transitions;
 		this.initial = initial;

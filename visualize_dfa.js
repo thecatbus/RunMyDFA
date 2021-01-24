@@ -208,7 +208,8 @@ function refreshDrawing() {
     selected = false;
 	myDFA.transitions.forEach(transition => {drawTransition(transition);})
     myDFA.states.forEach(state => {drawState(state);})
-    drawInitial(myDFA.initial);
+    // console.log(initial);
+    if (myDFA.initial) drawInitial(myDFA.initial);
 }
 
 function refresh(){

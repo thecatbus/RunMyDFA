@@ -20,7 +20,7 @@ class State {
 
 class Transition {
 	constructor(from = state0,
-		    to=[], 
+		    to=state0, 
 		    args=[],
 		    bend="",
 		    label=""){

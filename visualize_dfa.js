@@ -33,7 +33,7 @@ function drawState(state) {
 	figure.mouseout(function() {
     outer.stroke({ width: 1.5 });
     document.body.style.cursor = "default"; })
-    figure.dblclick(function() {
+    figure.click(function() {
         if (selected) {
             if (selected === state) {
                 selected = false;

@@ -48,7 +48,33 @@ function startPanel(node) {
 	var label = button(2, "Change label", function() {
 		node.label = prompt("Edit the node label", node.label);
 		refresh(); });
-	var goback = button(3, "Back to previous menu", function() {
+	var loop = button(3, "Add loop...", function() {
+		var above = button(4, "above", function() {
+			var label = prompt("Enter symbols for this transition", "");
+			var args = label.split(",");
+			var arrow = new Transition (state0, state0, args, "loop above", label);
+			myDFA.transitions.push(arrow);
+			refresh();});
+		var below = button(5, "below", function() {
+			var label = prompt("Enter symbols for this transition", "");
+			var args = label.split(",");
+			var arrow = new Transition (state0, state0, args, "loop below", label);
+			myDFA.transitions.push(arrow); 
+			refresh();});
+		var left = button(6, "left", function() {
+			var label = prompt("Enter symbols for this transition", "");
+			var args = label.split(",");
+			var arrow = new Transition (state0, state0, args, "loop left", label);
+			myDFA.transitions.push(arrow); 
+			refresh();});
+		var right = button(7, "right", function() {
+			var label = prompt("Enter symbols for this transition", "");
+			var args = label.split(",");
+			var arrow = new Transition (state0, state0, args, "loop right", label);
+			myDFA.transitions.push(arrow); 
+			refresh();}); 
+	});
+	var goback = button(10, "Back to previous menu", function() {
 		refresh();});
 }
 

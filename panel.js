@@ -2,7 +2,7 @@ function panelrefresh() {
 	panel.clear(); 
 	var background = panel.rect(250, height, {
 		fill: 'black',
-		'fill-opacity':0.3});
+		'fill-opacity':0.6});
 }
 
 function button(number, text, effect) {
@@ -14,7 +14,7 @@ function button(number, text, effect) {
 		'fill-opacity' :0});
 	box.mouseover(function() {
 		this.attr({fill: "#7f7f7f",
-			   'fill-opacity': 0.3});
+			   'fill-opacity': 0.7});
 		document.body.style.cursor = "pointer";})
 	box.mouseout(function() {
 		this.attr({fill: "black",
@@ -48,6 +48,8 @@ function startPanel(node) {
 	var label = button(2, "Change label", function() {
 		node.label = prompt("Edit the node label", node.label);
 		refresh(); });
+	var goback = button(3, "Back to previous menu", function() {
+		refresh();});
 }
 
 function defaultPanel() {
@@ -58,5 +60,7 @@ function defaultPanel() {
 		prompt("Remember to add preamble!", tex(myDFA))});
 	var pream = button(2, "View LaTeX preamble", function() {
 		prompt("Copy this at the start of your TeX file.", preamble())});
+	var center = button(3, "Center screen", function() {
+		window.scroll(2500-width/2, 2500-height/2); });
 }
 

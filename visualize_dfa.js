@@ -40,10 +40,12 @@ function drawState(state) {
                 refresh();
             } else {
                 myDFA.addArrow(new Transition(selected, state, [], "", ""));
+                refresh();
             }
+        } else {
+            nodeInterface(state);
+            selected = state;
         }
-        nodeInterface(state)
-        selected = state;
 	})
 }
 

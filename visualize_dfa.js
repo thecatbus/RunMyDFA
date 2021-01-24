@@ -66,6 +66,7 @@ function drawTransition(transition) {
     var ymid;
     var line;
     var angle;
+    var labelangle;
     if (transition.bend === "loop above") { 
 	    x1 = to.position.x + RADIUS * Math.sin(LOOPROT);
         y1 = to.position.y - RADIUS * Math.cos(LOOPROT);
@@ -79,19 +80,21 @@ function drawTransition(transition) {
         ymid = to.position.y - 4 * RADIUS;
         line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
         angle = -LOOPROT + Math.PI/2;
+	labelangle = 0;
     } else if (transition.bend === "loop below") {
         x1 = to.position.x - RADIUS * Math.sin(LOOPROT);
         y1 = to.position.y + RADIUS * Math.cos(LOOPROT);
         x21 = to.position.x - 2 * RADIUS;
         y21 = to.position.y + 5 * RADIUS;
-	    x22 = to.position.x + 2 * RADIUS;
-	    y22 = to.position.y + 5 * RADIUS;
+	x22 = to.position.x + 2 * RADIUS;
+	y22 = to.position.y + 5 * RADIUS;
         x3 = to.position.x + RADIUS * Math.sin(LOOPROT);
         y3 = to.position.y + RADIUS * Math.cos(LOOPROT);
         xmid = to.position.x;
         ymid = to.position.y + 4 * RADIUS;
         line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
         angle = -LOOPROT - Math.PI / 2;
+        labelangle = Math.PI;
     } else if (transition.bend === "loop left") {
         x1 = to.position.x - RADIUS * Math.cos(LOOPROT);
         y1 = to.position.y - RADIUS * Math.sin(LOOPROT);
@@ -105,6 +108,7 @@ function drawTransition(transition) {
         ymid = to.position.y;
         line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
         angle = -LOOPROT;
+        labelangle = -Math.PI/2;
     } else if (transition.bend === "loop right") {
         x1 = to.position.x + RADIUS * Math.cos(LOOPROT);
         y1 = to.position.y + RADIUS * Math.sin(LOOPROT);
@@ -117,9 +121,11 @@ function drawTransition(transition) {
         xmid = to.position.x + 4 * RADIUS;
         ymid = to.position.y;
         line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
-        angle = -LOOPROT + Math.PI;
+        angle = -LOOPROT + Math.PI; 
+	labelangle = Math.PI/2;
     } else if (transition.bend === "bend left") {
 	    angle = Math.atan2( to.position.y - from.position.y, to.position.x - from.position.x);
+	    labelangle = angle;
 	    xmid = (to.position.x + from.position.x) / 2 
 	    ymid = (to.position.y + from.position.y) / 2 
         x1 = from.position.x + RADIUS * Math.cos(angle- (Math.PI/4)); 
@@ -131,6 +137,7 @@ function drawTransition(transition) {
         line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
     } else if (transition.bend === "bend right") { 
 	    var angle = Math.atan2( to.position.y - from.position.y, to.position.x - from.position.x);
+	    labelangle = angle;
 	    xmid = (to.position.x + from.position.x) / 2 
 	    ymid = (to.position.y + from.position.y) / 2 
         x1 = from.position.x + RADIUS * Math.cos(angle+ (Math.PI/4)); 
@@ -142,6 +149,7 @@ function drawTransition(transition) {
         line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
     } else {
 	    var angle = Math.atan2( to.position.y - from.position.y, to.position.x - from.position.x);
+	    labelangle = angle;
 	    xmid = (to.position.x + from.position.x) / 2 
 	    ymid = (to.position.y + from.position.y) / 2 
         x1 = from.position.x + RADIUS * Math.cos(angle); 
@@ -172,7 +180,7 @@ function drawTransition(transition) {
 
 	var point = line.pointAt(line.length() / 2);
     	var label = figure.text(transition.label);  
-	label.center(point.x + 15*Math.sin(angle),point.y-15*Math.cos(angle));
+	label.center(point.x + 15*Math.sin(labelangle),point.y-15*Math.cos(labelangle));
 
 }
 

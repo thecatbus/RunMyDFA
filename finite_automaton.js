@@ -79,17 +79,10 @@ class Finite_Automaton {
             relative = { ref: state0, where: { left: true, right: false, above: false, below: false } },
             accepting = false,
             label = "") {
-        let position = { x: 0, y: 0 }
-        if (relative.where.left) position.x = -1;
-        if (relative.where.right) position.x = 1;
-        if (relative.where.above) position.y = -1;
-        if (relative.where.below) position.y = 1;
-        let len = Math.sqrt(position.x * position.x + position.y * position.y);
-        position.x = ARROWLENGTH * position.x / len + relative.ref.position.x
-        position.y = ARROWLENGTH * position.y / len + relative.ref.position.y
-        let node = new State(name, position, relative, accepting, label)
-        this.states.push(node);
-        return node;
+	    let newposition = findposition(relative.ref, relative.where); 
+	    let node = new State(name, newposition, relative, accepting, label)
+	    this.states.push(node); 
+	    return node;
 	} 
 
 	addArrow(transition) {

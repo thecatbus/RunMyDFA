@@ -1,84 +1,48 @@
-function nodeInterface(state) {
-	startPanel(state);
+function findposition(node, where) {
+        let position = { x: 0, y: 0 }
+        if (where.left) position.x = -1;
+        if (where.right) position.x = 1;
+        if (where.above) position.y = -1;
+        if (where.below) position.y = 1;
+        let len = Math.sqrt(position.x * position.x + position.y * position.y);
+        position.x = ARROWLENGTH * position.x / len + node.position.x;
+        position.y = ARROWLENGTH * position.y / len + node.position.y;
+	return position;}
 
-	// NEW NODES
-	var above = draw.circle(40, {
-		cx : state.position.x,
-		cy : state.position.y - ARROWLENGTH, 
-		stroke: "#D3D3D3",
-		fill: "white"});
-	above.mouseover(function() {
-		this.attr({stroke: "black"})
+function addghost(node, where) {
+	var pos = findposition(node,where);
+	var ghost = draw.circle(40, {
+			cx: pos.x,
+			cy: pos.y,
+			stroke: "#D3D3D3",
+			fill: "white",
+			'fill-opacity': 0});
+	ghost.mouseover(function() {
+		this.attr({stroke: "black"});
+		document.body.style.cursor = "pointer";
 	})
-	above.mouseout(function() {
-		this.attr({stroke: "#D3D3D3"})
+	ghost.mouseout(function() {
+		this.attr({stroke: "#D3D3D3"});
+		document.body.style.cursor = "default";
 	})
-	above.click(function() {
+	ghost.click(function() {
 		namecounter+=1;
-		myDFA.addNode(namecounter.toString(), 
-			      {ref: state, 
-			       where: {left: false, right: false, above: true, below: false}},
-			       false, "");
+		myDFA.addNode(namecounter.toString(), {ref: node, where: where}, false, "");
 		refresh();
-	})
+	}) 
+}
 
-	var below = draw.circle(40, {
-		cx : state.position.x,
-		cy : state.position.y + ARROWLENGTH, 
-		stroke: "#D3D3D3",
-		fill: "white"});
-	below.mouseover(function() {
-		this.attr({stroke: "black"})
-	})
-	below.mouseout(function() {
-		this.attr({stroke: "#D3D3D3"})
-	})
-	below.click(function() {
-		namecounter+=1;
-		myDFA.addNode(namecounter.toString(), 
-			      {ref: state, 
-			       where: {left: false, right: false, above: false, below: true}},
-			       false, "");
-		refresh();
-	})
+	
 
-	var left = draw.circle(40, {
-		cx : state.position.x - ARROWLENGTH,
-		cy : state.position.y, 
-		stroke: "#D3D3D3",
-		fill: "white"});
-	left.mouseover(function() {
-		this.attr({stroke: "black"})
-	})
-	left.mouseout(function() {
-		this.attr({stroke: "#D3D3D3"})
-	})
-	left.click(function() {
-		namecounter+=1;
-		myDFA.addNode(namecounter.toString(), 
-			      {ref: state, 
-			       where: {left: true, right: false, above: false, below: false}},
-			       false, "");
-		refresh();
-	})
+function nodeInterface(node) {
+	startPanel(node);
 
-	var right = draw.circle(40, {
-		cx : state.position.x + ARROWLENGTH,
-		cy : state.position.y, 
-		stroke: "#D3D3D3",
-		fill: "white"});
-	right.mouseover(function() {
-		this.attr({stroke: "black"})
-	})
-	right.mouseout(function() {
-		this.attr({stroke: "#D3D3D3"})
-	})
-	right.click(function() {
-		namecounter+=1;
-		myDFA.addNode(namecounter.toString(), 
-			      {ref: state, 
-			       where: {left: false, right: true, above: false, below: false}},
-			       false, "");
-		refresh();
-	})
+	var above = addghost(node, {left: false, right: false, above: true, below: false});
+	var below = addghost(node, {left: false, right: false, above: false, below: true});
+	var left = addghost(node, {left: true, right: false, above: false, below: false});
+	var right = addghost(node, {left: false, right: true, above: false, below: false});
+	var aboveleft = addghost(node, {left: true, right: false, above: true, below: false});
+	var aboveright = addghost(node, {left: false, right: true, above: true, below: false});
+	var belowleft = addghost(node, {left: true, right: false, above: false, below: true});
+	var belowright = addghost(node, {left: false, right: true, above: false, below: true});
 }

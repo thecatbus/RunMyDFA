@@ -41,9 +41,13 @@ function drawTransition(transition) {
     var to = transition.to;
     var from = transition.from;
     var x1;
+    var x21;
+    var x22;
     var x2;
     var x3;
     var y1;
+    var y21;
+    var y22;
     var y2;
     var y3;
     var line;
@@ -87,25 +91,30 @@ function drawTransition(transition) {
 	    y22 = to.position.y - 2 * RADIUS;
         x3 = to.position.x + RADIUS * Math.cos(LOOPROT);
         y3 = to.position.y - RADIUS * Math.sin(LOOPROT);
-        angle = -LOOPROT + Math.PI/2;
+        angle = -LOOPROT + Math.PI;
     } else { 
         angle = Math.atan2(to.position.y - from.position.y, to.position.x - from.position.x)
         x1 = from.position.x + (RADIUS + ARROWSIZE) * Math.cos(angle);
         y1 = from.position.y + (RADIUS + ARROWSIZE) * Math.sin(angle);
         x3 = to.position.x - (RADIUS + ARROWSIZE) * Math.cos(angle);
         y3 = to.position.y - (RADIUS + ARROWSIZE) * Math.sin(angle);
-        x2 = (x1 + x3) / 2;
-        y2 = (y1 + y3) / 2;
+        x21 = (2*x1 + x3) / 3.;
+        y21 = (2*y1 + y3) / 3.;
+        x22 = (x1 + 2*x3) / 3.;
+        y22 = (y1 + 2*y3) / 3.;
     }
     line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' });
-    head = figure.image('/img/arrow.svg', {scale : ARROWSCALE});
-    head.center(x3, y3);
-    head.rotate(180*angle/Math.PI, head.cx(), head.cy());
-    var w = ARROWWIDTH;
-    var h = ARROWHEIGHT;
-    console.log(w, h);
-    console.log(w * Math.cos(angle) - h * Math.sin(angle), h * Math.cos(angle) + w * Math.sin(angle))
-    head.dmove(w * Math.cos(angle) - h * Math.sin(angle), h * Math.cos(angle) + w * Math.sin(angle))
+    head = figure.image('/img/arrow.svg');
+    head.transform({ scale: 3, tx: x3, ty: y3, rotate: 180 * angle / Math.PI});
+    // head.center(x3, y3);
+    // head.rotate(180*angle/Math.PI, head.cx(), head.cy());
+    var w = 5;
+    var h = 6;
+    // console.log(w, h);
+    console.log(Math.sin(angle), Math.cos(angle))
+    // console.log(w * Math.cos(angle) - h * Math.sin(angle), h * Math.cos(angle) + w * Math.sin(angle))
+    // head.dmove(+ h/2 * Math.sin(angle), - h/2 * Math.cos(angle))
+    head.dmove(-w/2, -h/2);
     // head.scale(ARROWSCALE, x3, y3);
     
 }

@@ -6,6 +6,7 @@ const ARROWSCALE = 3;
 const ARROWWIDTH = 2.83;
 const ARROWHEIGHT = 5.98;
 
+var selected = false;
 
 function drawState(state) { 
 	var figure = draw.group();
@@ -30,9 +31,15 @@ function drawState(state) {
 		document.body.style.cursor = "pointer"; })
 	figure.mouseout(function() {
         outer.stroke({ width: 1 });
-		document.body.style.cursor = "default"; })
+        document.body.style.cursor = "default"; })
+    figure.click(function() {
+        if (selected) {
+            myDFA.addArrow(new Transition(selected, state, [], "", ""));
+        }
+    })
 	figure.dblclick(function() {
-		nodeInterface(state)
+        nodeInterface(state)
+        selected = state;
 	})
 }
 
@@ -152,7 +159,8 @@ function drawTransition(transition) {
 
 function refresh() {
 	defaultPanel();
-	draw.clear();
+    draw.clear();
+    selected = false;
 	myDFA.transitions.forEach(transition => {drawTransition(transition);})
 	myDFA.states.forEach(state => {drawState(state);})
 }

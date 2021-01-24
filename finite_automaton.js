@@ -83,9 +83,7 @@ class Finite_Automaton {
 	    let newposition = findposition(relative.ref, relative.where); 
 	    let node = new State(name, newposition, relative, accepting, label)
         this.states.push(node); 
-        this.addArrow(new Transition(relative.ref, node, [], "", "hi"));
-        this.addArrow(new Transition(node, node, [], "loop left", "hi"));
-	    return node;
+        return node;
 	} 
 
 	addArrow(transition) {

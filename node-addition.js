@@ -32,8 +32,6 @@ function addghost(node, where) {
 	}) 
 }
 
-	
-
 function nodeInterface(node) {
 	refresh();
 	startPanel(node);

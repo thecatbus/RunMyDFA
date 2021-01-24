@@ -8,7 +8,8 @@ function drawState(state) {
 			cx : state.position.x, 
 			cy : state.position.y,
 			stroke: "black",
-			fill: "white"});
+			fill: "white",
+			'fill-opacity': 0});
 	if (state.accepting) {
 		var inner = figure.circle(30, { 
 			cx : state.position.x, 

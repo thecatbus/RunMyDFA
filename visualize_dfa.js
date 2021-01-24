@@ -48,41 +48,47 @@ function drawTransition(transition) {
     var y3;
     var line;
     var angle;
-    if (to === from) {
-        if (transition.bend.loop === "below") {
-            x1 = to.position.x + RADIUS * Math.sin(LOOPROT);
-            y1 = to.position.y + RADIUS * Math.cos(LOOPROT);
-            x2 = to.position.x;
-            y2 = to.position.y + 3 * RADIUS;
-            x3 = to.position.x - RADIUS * Math.sin(LOOPROT);
-            y3 = to.position.y + RADIUS * Math.cos(LOOPROT);
-            angle = -LOOPROT - Math.PI/2;
-        } else if (transition.bend.loop === "left") {
-            x1 = to.position.x - RADIUS * Math.cos(LOOPROT);
-            y1 = to.position.y - RADIUS * Math.sin(LOOPROT);
-            x2 = to.position.x - 3 * RADIUS;
-            y2 = to.position.y;
-            x3 = to.position.x - RADIUS * Math.cos(LOOPROT);
-            y3 = to.position.y + RADIUS * Math.sin(LOOPROT);
-            angle = -LOOPROT;
-        } else if (transition.bend.loop === "below") {
-            x1 = to.position.x + RADIUS * Math.cos(LOOPROT);
-            y1 = to.position.y + RADIUS * Math.sin(LOOPROT);
-            x2 = to.position.x + 3 * RADIUS;
-            y2 = to.position.y;
-            x3 = to.position.x + RADIUS * Math.cos(LOOPROT);
-            y3 = to.position.y - RADIUS * Math.sin(LOOPROT);
-            angle = -LOOPROT + Math.PI;
-        } else {
-            x1 = to.position.x - RADIUS * Math.sin(LOOPROT);
-            y1 = to.position.y - RADIUS * Math.cos(LOOPROT);
-            x2 = to.position.x;
-            y2 = to.position.y - 3 * RADIUS;
-            x3 = to.position.x + RADIUS * Math.sin(LOOPROT);
-            y3 = to.position.y - RADIUS * Math.cos(LOOPROT);
-            angle = -LOOPROT + Math.PI/2;
-        }
-    } else {
+    if (transition.bend === "loop above") { 
+	    x1 = to.position.x + RADIUS * Math.sin(LOOPROT);
+        y1 = to.position.y - RADIUS * Math.cos(LOOPROT);
+        x21 = to.position.x + 2 * RADIUS;
+        y21 = to.position.y - 5 * RADIUS;
+	    x22 = to.position.x - 2 * RADIUS;
+	    y22 = to.position.y - 5 * RADIUS;
+        x3 = to.position.x - RADIUS * Math.sin(LOOPROT);
+        y3 = to.position.y - RADIUS * Math.cos(LOOPROT);
+        angle = -LOOPROT - Math.PI/2;
+    } else if (transition.bend === "loop below") {
+        x1 = to.position.x - RADIUS * Math.sin(LOOPROT);
+        y1 = to.position.y + RADIUS * Math.cos(LOOPROT);
+        x21 = to.position.x - 2 * RADIUS;
+        y21 = to.position.y + 5 * RADIUS;
+	    x22 = to.position.x + 2 * RADIUS;
+	    y22 = to.position.y + 5 * RADIUS;
+        x3 = to.position.x + RADIUS * Math.sin(LOOPROT);
+        y3 = to.position.y + RADIUS * Math.cos(LOOPROT);
+        angle = -LOOPROT;
+    } else if (transition.bend === "loop left") {
+        x1 = to.position.x - RADIUS * Math.cos(LOOPROT);
+        y1 = to.position.y - RADIUS * Math.sin(LOOPROT);
+        x21 = to.position.x - 5 * RADIUS;
+        y21 = to.position.y - 2 * RADIUS;
+	    x22 = to.position.x - 5 * RADIUS;
+	    y22 = to.position.y + 2 * RADIUS;
+        x3 = to.position.x - RADIUS * Math.cos(LOOPROT);
+        y3 = to.position.y + RADIUS * Math.sin(LOOPROT);
+        angle = -LOOPROT + Math.PI;
+    } else if (transition.bend === "loop right") {
+        x1 = to.position.x + RADIUS * Math.cos(LOOPROT);
+        y1 = to.position.y + RADIUS * Math.sin(LOOPROT);
+        x21 = to.position.x + 5 * RADIUS;
+        y21 = to.position.y + 2 * RADIUS;
+	    x22 = to.position.x + 5 * RADIUS;
+	    y22 = to.position.y - 2 * RADIUS;
+        x3 = to.position.x + RADIUS * Math.cos(LOOPROT);
+        y3 = to.position.y - RADIUS * Math.sin(LOOPROT);
+        angle = -LOOPROT + Math.PI/2;
+    } else { 
         angle = Math.atan2(to.position.y - from.position.y, to.position.x - from.position.x)
         x1 = from.position.x + (RADIUS + ARROWSIZE) * Math.cos(angle);
         y1 = from.position.y + (RADIUS + ARROWSIZE) * Math.sin(angle);
@@ -91,7 +97,7 @@ function drawTransition(transition) {
         x2 = (x1 + x3) / 2;
         y2 = (y1 + y3) / 2;
     }
-    line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' });
+    line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' });
     head = figure.image('/img/arrow.svg', {scale : ARROWSCALE});
     head.center(x3, y3);
     head.rotate(180*angle/Math.PI, head.cx(), head.cy());
@@ -165,11 +171,7 @@ function drawTransition(transition) {
 
 function refresh() {
 	defaultPanel();
-    draw.clear();
-    myDFA.transitions.forEach(transition => {
-        drawTransition(transition);
-    })
-	myDFA.states.forEach(state => { 
-		drawState(state); 
-	})
+	draw.clear();
+	myDFA.transitions.forEach(transition => {drawTransition(transition);})
+	myDFA.states.forEach(state => {drawState(state);})
 }

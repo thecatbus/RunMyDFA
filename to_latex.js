@@ -29,7 +29,7 @@ function preamble() {
 function node_tex(node) {
 	code = "\\node[state";
 
-	if (node.initial) {
+	if (myDFA.initial === node) {
 		code += ", initial";
 	}
 
@@ -39,13 +39,13 @@ function node_tex(node) {
 
 	code += "] (" + (node.name) + ") ";
 
-	if (!node.initial) {
+	if (node.isNotAnchor()) {
 		where = "";
-		if (node.relative.above) where += "above ";
-		if (node.relative.below) where += "below ";
-		if (node.relative.right) where += "right ";
-		if (node.relative.left) where += "left ";
-		code += "[" + node.relative.where + "of=" + node.relative.ref.name + "] ";
+		if (node.relative.where.above) where += "above ";
+		if (node.relative.where.below) where += "below ";
+		if (node.relative.where.right) where += "right ";
+		if (node.relative.where.left) where += "left ";
+		code += "[" + where + "of=" + node.relative.ref.name + "] ";
 	}
 
 	code += "{" + node.label + "};";

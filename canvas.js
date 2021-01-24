@@ -5,8 +5,8 @@ var namecounter = 0;
 var draw = SVG().addTo('body').size(2000,2000)
 var panel = SVG().addTo('#overlay').size(width*3/10,height)
 
-state0 = new State("0", {x: 500, y: 500}, (0, {left: false, right: false, above: false, below: false}), false, "", 25, []);
-myDFA = new Finite_Automaton(["0", "1"], [state0], state0);
+state0 = new State("0", {x: 500, y: 500}, {ref: undefined, where: {left: false, right: false, above: false, below: false}}, false, "", 25, []);
+myDFA = new Finite_Automaton(["0", "1"], [state0], [], state0);
 
 refresh();
 

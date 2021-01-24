@@ -54,5 +54,9 @@ function defaultPanel() {
 	panelrefresh();
 	var changeAlph = button(0, "Change alphabet", function() {
 	 	alert("Not yet implemented"); });
+	var getTex = button(1, "Generate LaTeX", function() {
+		prompt("Remember to add preamble!", tex(myDFA))});
+	var pream = button(2, "View LaTeX preamble", function() {
+		prompt("Copy this at the start of your TeX file.", preamble())});
 }
 

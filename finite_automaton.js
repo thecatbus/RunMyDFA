@@ -10,6 +10,11 @@ class State {
 		this.accepting = accepting;
        	        this.label = label; 
 	} 
+
+	isNotAnchor() {
+		var notanchor = this.relative.where.left || this.relative.where.right || this.relative.where.above || this.relative.where.below;
+		return notanchor; 
+	}
 }
 
 class Transition {
@@ -79,9 +84,7 @@ class Finite_Automaton {
         if (relative.where.right) position.x = 1;
         if (relative.where.above) position.y = -1;
         if (relative.where.below) position.y = 1;
-        console.log(position, relative.where)
         let len = Math.sqrt(position.x * position.x + position.y * position.y);
-        console.log(len);
         position.x = ARROWLENGTH * position.x / len + relative.ref.position.x
         position.y = ARROWLENGTH * position.y / len + relative.ref.position.y
         let node = new State(name, position, relative, accepting, label)

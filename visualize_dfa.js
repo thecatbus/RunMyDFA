@@ -132,11 +132,8 @@ function drawTransition(transition) {
         line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
     }
 
-    // line = figure.path(`M${x1} ${y1} C ${x21} ${y21} ${x22} ${y22} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' });
     head = figure.image('./img/arrow.svg');
     head.transform({ scale: 3, tx: x3, ty: y3, rotate: 180 * angle / Math.PI});
-    // head.center(x3, y3);
-    // head.rotate(180*angle/Math.PI, head.cx(), head.cy());
     var w = 5;
     var h = 6;
     console.log(Math.sin(angle), Math.cos(angle))

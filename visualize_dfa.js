@@ -25,11 +25,11 @@ function drawState(state) {
 			x: state.position.x -3,
 			y: state.position.y -15})
 
-	figure.mouseover(function() {
-		outer.radius(25);
+    figure.mouseover(function () {
+        outer.stroke({ width: 2 });
 		document.body.style.cursor = "pointer"; })
 	figure.mouseout(function() {
-		outer.radius(20);
+        outer.stroke({ width: 1 });
 		document.body.style.cursor = "default"; })
 	figure.dblclick(function() {
 		nodeInterface(state)
@@ -61,7 +61,7 @@ function drawTransition(transition) {
 	    y22 = to.position.y - 5 * RADIUS;
         x3 = to.position.x - RADIUS * Math.sin(LOOPROT);
         y3 = to.position.y - RADIUS * Math.cos(LOOPROT);
-        angle = -LOOPROT - Math.PI/2;
+        angle = -LOOPROT + Math.PI/2;
     } else if (transition.bend === "loop below") {
         x1 = to.position.x - RADIUS * Math.sin(LOOPROT);
         y1 = to.position.y + RADIUS * Math.cos(LOOPROT);
@@ -71,7 +71,7 @@ function drawTransition(transition) {
 	    y22 = to.position.y + 5 * RADIUS;
         x3 = to.position.x + RADIUS * Math.sin(LOOPROT);
         y3 = to.position.y + RADIUS * Math.cos(LOOPROT);
-        angle = -LOOPROT;
+        angle = -LOOPROT - Math.PI / 2;
     } else if (transition.bend === "loop left") {
         x1 = to.position.x - RADIUS * Math.cos(LOOPROT);
         y1 = to.position.y - RADIUS * Math.sin(LOOPROT);
@@ -81,7 +81,7 @@ function drawTransition(transition) {
 	    y22 = to.position.y + 2 * RADIUS;
         x3 = to.position.x - RADIUS * Math.cos(LOOPROT);
         y3 = to.position.y + RADIUS * Math.sin(LOOPROT);
-        angle = -LOOPROT + Math.PI;
+        angle = -LOOPROT;
     } else if (transition.bend === "loop right") {
         x1 = to.position.x + RADIUS * Math.cos(LOOPROT);
         y1 = to.position.y + RADIUS * Math.sin(LOOPROT);
@@ -116,7 +116,17 @@ function drawTransition(transition) {
     // head.dmove(+ h/2 * Math.sin(angle), - h/2 * Math.cos(angle))
     head.dmove(-w/2, -h/2);
     // head.scale(ARROWSCALE, x3, y3);
-    
+    figure.mouseover(function () {
+        line.stroke({width : 2});
+        document.body.style.cursor = "pointer";
+    })
+    figure.mouseout(function () {
+        line.stroke({ width: 1 });
+        document.body.style.cursor = "default";
+    })
+    figure.dblclick(function () {
+        nodeInterface(state)
+    })
 }
 
 // function draw_arrowhead(context, from, to, radius) {

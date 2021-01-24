@@ -47,7 +47,8 @@ function startPanel(node) {
 		node.accepting = !node.accepting;
 		refresh(); });
 	var label = button(2, "Change label", function() {
-		node.label = prompt("Edit the node label", node.label);
+		var label = prompt("Edit the node label", node.label);
+		if (label) {node.label = label};
 		refresh(); });
 	var loop = button(3, "Add loop...", function() {
 		var above = button(4, "above", function() {

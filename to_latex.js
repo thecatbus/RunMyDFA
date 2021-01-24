@@ -1,27 +1,28 @@
 function preamble() {
 	code = `
 
-	\\usepackage{tikz} 
+\\usepackage{tikz} 
+\\usetikzlibrary {arrows.meta,automata,positioning}
 
-	\\newenvironment{tikzautomata}{
-		  \\begin{tikzpicture}[
-			      baseline = (current bounding box.north),
-			        > = stealth,
-			        shorten > = 1pt,
-			        auto,
-			        node distance = 2cm,
-			        on grid,
-			        semithick
-			        ]
-		      \\tikzstyle{every state}=[
-			            draw = black,
-			            thick,
-			            fill = white,
-			            minimum size = 5mm
-			            ]}
-	    {\\end{tikzpicture}}
 
-	    `;
+\\newenvironment{tikzautomata}{
+	  \\begin{tikzpicture}[
+		      baseline = (current bounding box.north),
+		        >= stealth,
+		        shorten >= 1pt,
+		        auto,
+		        node distance = 2cm,
+		        on grid,
+		        semithick
+		        ]
+	      \\tikzstyle{every state}=[
+		            draw = black,
+		            thick,
+		            fill = white,
+		            minimum size = 5mm
+		            ]}
+    {\\end{tikzpicture}}
+`;
 
 	return code;
 }
@@ -45,7 +46,7 @@ function node_tex(node) {
 		if (node.relative.where.below) where += "below ";
 		if (node.relative.where.right) where += "right ";
 		if (node.relative.where.left) where += "left ";
-		code += "[" + where + "of=" + node.relative.ref.name + "] ";
+		code += "[" + where + "=of " + node.relative.ref.name + "] ";
 	}
 
 	code += "{" + node.label + "};";
@@ -54,14 +55,10 @@ function node_tex(node) {
 }
 
 function arrow_tex(arrow) {
-	code = "(" + arrow.from.name + ") edge [" + arrow.bend + "] {" + arrow.label + "} "; 
-
-	if (arrow.from.name != arrow.to.name) {
-		code += "(" + arrow.to.name + ")";
-	} else {
-		code += "()";
-	}
-
+	code = "(" + arrow.from.name + ") edge [" + arrow.bend + "] node "
+	code += "{" + arrow.label + "} "; 
+	code += "(" + arrow.to.name + ")";
+		
 	return code;
 }
 

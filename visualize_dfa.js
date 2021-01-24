@@ -121,7 +121,7 @@ function drawTransition(transition) {
         document.body.style.cursor = "default";
     })
     figure.dblclick(function () {
-        nodeInterface(state)
+        arrowInterface(transition);
     })
 }
 

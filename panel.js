@@ -52,6 +52,12 @@ function startPanel(node) {
 		refresh();});
 }
 
+function toArrowInterface(transition) {
+}
+
+function selfArrowInterface(transition) {
+}
+
 function defaultPanel() {
 	panelrefresh();
 	var changeAlph = button(0, "Change alphabet", function() {

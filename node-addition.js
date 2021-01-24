@@ -48,3 +48,11 @@ function nodeInterface(node) {
 		if (isFree(loc, node, myDFA)) { addghost(node, loc);}
 	}
 }
+
+function arrowInterface(arrow) {
+	if (arrow.to === arrow.from) {
+		selfArrowInterface(arrow);
+	} else {
+		toArrowInterface(arrow);
+	}
+}

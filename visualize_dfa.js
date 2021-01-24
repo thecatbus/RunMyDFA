@@ -2,6 +2,10 @@ const ARROWSIZE = 0;
 const ARROWLENGTH = 150
 const RADIUS = 20;
 const LOOPROT = 0.5;
+const ARROWSCALE = 3;
+const ARROWWIDTH = 2.83;
+const ARROWHEIGHT = 5.98;
+
 
 function drawState(state) { 
 	var figure = draw.group();
@@ -43,6 +47,7 @@ function drawTransition(transition) {
     var y2;
     var y3;
     var line;
+    var angle;
     if (to === from) {
         if (transition.bend.loop === "below") {
             x1 = to.position.x + RADIUS * Math.sin(LOOPROT);
@@ -51,40 +56,52 @@ function drawTransition(transition) {
             y2 = to.position.y + 3 * RADIUS;
             x3 = to.position.x - RADIUS * Math.sin(LOOPROT);
             y3 = to.position.y + RADIUS * Math.cos(LOOPROT);
+            angle = -LOOPROT - Math.PI/2;
         } else if (transition.bend.loop === "left") {
-            x1 = to.position.x - RADIUS * Math.sin(LOOPROT);
-            y1 = to.position.y + RADIUS * Math.cos(LOOPROT);
-            x2 = to.position.x;
-            y2 = to.position.y + 3 * RADIUS;
+            x1 = to.position.x - RADIUS * Math.cos(LOOPROT);
+            y1 = to.position.y - RADIUS * Math.sin(LOOPROT);
+            x2 = to.position.x - 3 * RADIUS;
+            y2 = to.position.y;
             x3 = to.position.x - RADIUS * Math.cos(LOOPROT);
             y3 = to.position.y + RADIUS * Math.sin(LOOPROT);
+            angle = -LOOPROT;
         } else if (transition.bend.loop === "below") {
-            x1 = to.position.x + RADIUS * Math.sin(LOOPROT);
-            y1 = to.position.y + RADIUS * Math.cos(LOOPROT);
-            x2 = to.position.x;
-            y2 = to.position.y + 3 * RADIUS;
-            x3 = to.position.x - RADIUS * Math.sin(LOOPROT);
-            y3 = to.position.y + RADIUS * Math.cos(LOOPROT);
+            x1 = to.position.x + RADIUS * Math.cos(LOOPROT);
+            y1 = to.position.y + RADIUS * Math.sin(LOOPROT);
+            x2 = to.position.x + 3 * RADIUS;
+            y2 = to.position.y;
+            x3 = to.position.x + RADIUS * Math.cos(LOOPROT);
+            y3 = to.position.y - RADIUS * Math.sin(LOOPROT);
+            angle = -LOOPROT + Math.PI;
         } else {
-            x1 = to.position.x + RADIUS * Math.sin(LOOPROT);
-            y1 = to.position.y + RADIUS * Math.cos(LOOPROT);
+            x1 = to.position.x - RADIUS * Math.sin(LOOPROT);
+            y1 = to.position.y - RADIUS * Math.cos(LOOPROT);
             x2 = to.position.x;
-            y2 = to.position.y + 3 * RADIUS;
-            x3 = to.position.x - RADIUS * Math.sin(LOOPROT);
-            y3 = to.position.y + RADIUS * Math.cos(LOOPROT);
+            y2 = to.position.y - 3 * RADIUS;
+            x3 = to.position.x + RADIUS * Math.sin(LOOPROT);
+            y3 = to.position.y - RADIUS * Math.cos(LOOPROT);
+            angle = -LOOPROT + Math.PI/2;
         }
     } else {
-        var angle;
         angle = Math.atan2(to.position.y - from.position.y, to.position.x - from.position.x)
-        x1 = to.position.x - (RADIUS + ARROWSIZE) * Math.cos(angle);
-        y1 = to.position.y - (RADIUS + ARROWSIZE) * Math.sin(angle);
-        x3 = from.position.x + (RADIUS + ARROWSIZE) * Math.cos(angle);
-        y3 = from.position.y + (RADIUS + ARROWSIZE) * Math.sin(angle);
+        x1 = from.position.x + (RADIUS + ARROWSIZE) * Math.cos(angle);
+        y1 = from.position.y + (RADIUS + ARROWSIZE) * Math.sin(angle);
+        x3 = to.position.x - (RADIUS + ARROWSIZE) * Math.cos(angle);
+        y3 = to.position.y - (RADIUS + ARROWSIZE) * Math.sin(angle);
         x2 = (x1 + x3) / 2;
         y2 = (y1 + y3) / 2;
-
     }
     line = figure.path(`M${x1} ${y1} Q ${x2} ${y2} ${x3} ${y3}`, { 'fill': "none", 'stroke-width': 1, 'stroke': 'black' });
+    head = figure.image('/img/arrow.svg', {scale : ARROWSCALE});
+    head.center(x3, y3);
+    head.rotate(180*angle/Math.PI, head.cx(), head.cy());
+    var w = ARROWWIDTH;
+    var h = ARROWHEIGHT;
+    console.log(w, h);
+    console.log(w * Math.cos(angle) - h * Math.sin(angle), h * Math.cos(angle) + w * Math.sin(angle))
+    head.dmove(w * Math.cos(angle) - h * Math.sin(angle), h * Math.cos(angle) + w * Math.sin(angle))
+    // head.scale(ARROWSCALE, x3, y3);
+    
 }
 
 // function draw_arrowhead(context, from, to, radius) {

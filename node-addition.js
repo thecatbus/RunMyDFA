@@ -9,6 +9,15 @@ function findposition(node, where) {
         position.y = ARROWLENGTH * position.y / len + node.position.y;
 	return position;}
 
+function isFree(loc, state, automaton) {
+	var free = true;
+	var pos = findposition(state, loc);
+	automaton.states.forEach(function(node) {
+		if (node.position.x == pos.x && node.position.y == pos.y) {free = false;}
+	})
+	return free;
+}
+
 function addghost(node, where) {
 	var pos = findposition(node,where);
 	var ghost = draw.circle(40, {
@@ -35,12 +44,7 @@ function addghost(node, where) {
 function nodeInterface(node) {
 	refresh();
 	startPanel(node);
-	var above = addghost(node, {left: false, right: false, above: true, below: false});
-	var below = addghost(node, {left: false, right: false, above: false, below: true});
-	var left = addghost(node, {left: true, right: false, above: false, below: false});
-	var right = addghost(node, {left: false, right: true, above: false, below: false});
-	var aboveleft = addghost(node, {left: true, right: false, above: true, below: false});
-	var aboveright = addghost(node, {left: false, right: true, above: true, below: false});
-	var belowleft = addghost(node, {left: true, right: false, above: false, below: true});
-	var belowright = addghost(node, {left: false, right: true, above: false, below: true});
+	for (loc of LOCATIONS) {
+		if (isFree(loc, node, myDFA)) { addghost(node, loc);}
+	}
 }

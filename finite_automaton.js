@@ -15,6 +15,7 @@ class State {
 		var notanchor = this.relative.where.left || this.relative.where.right || this.relative.where.above || this.relative.where.below;
 		return notanchor; 
 	}
+
 }
 
 class Transition {
@@ -92,3 +93,14 @@ class Finite_Automaton {
 
 class DFA extends Finite_Automaton {
 }
+
+const ABOVE = {left: false, right: false, above: true, below: false};
+const BELOW = {left: false, right: false, above: false, below: true};
+const LEFT = {left: true, right: false, above: false, below: false};
+const RIGHT = {left: false, right: true, above: false, below: false};
+const ABOVELEFT = {left: true, right: false, above: true, below: false};
+const ABOVERIGHT = {left: false, right: true, above: true, below: false};
+const BELOWLEFT = {left: true, right: false, above: false, below: true};
+const BELOWRIGHT = {left: false, right: true, above: false, below: true};
+
+const LOCATIONS = [ABOVE, BELOW, LEFT, RIGHT, ABOVELEFT, ABOVERIGHT, BELOWLEFT, BELOWRIGHT];

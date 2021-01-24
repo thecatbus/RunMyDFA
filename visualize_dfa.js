@@ -5,8 +5,16 @@ const LOOPROT = 0.5;
 const ARROWSCALE = 3;
 const ARROWWIDTH = 2.83;
 const ARROWHEIGHT = 5.98;
+const INITLENGTH = 20;
 
 var selected = false;
+
+function drawInitial(state) {
+    var figure = draw.group();
+    var line = figure.line(state.position.x - RADIUS - INITLENGTH, state.position.y, state.position.x - RADIUS, state.position.y, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
+    var head = figure.image("./img/arrow.svg");
+    head.transform({ scale: 3, tx: state.position.x - RADIUS - 7, ty: state.position.y - 9});
+}
 
 function drawState(state) { 
 	var figure = draw.group();
@@ -198,5 +206,6 @@ function refresh() {
     draw.clear();
     selected = false;
 	myDFA.transitions.forEach(transition => {drawTransition(transition);})
-	myDFA.states.forEach(state => {drawState(state);})
+    myDFA.states.forEach(state => {drawState(state);})
+    drawInitial(myDFA.initial);
 }

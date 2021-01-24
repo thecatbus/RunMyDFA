@@ -3,38 +3,32 @@ const ARROWLENGTH = 150
 const RADIUS = 50;
 
 function drawState(state) { 
-	if (state.accepting) {
-		var outer = draw.circle(40, {
+	var figure = draw.group();
+	var outer = figure.circle(40, {
 			cx : state.position.x, 
 			cy : state.position.y,
 			stroke: "black",
 			fill: "white"});
-
-		var inner = draw.circle(30, { 
+	if (state.accepting) {
+		var inner = figure.circle(30, { 
 			cx : state.position.x, 
 			cy : state.position.y, 
 			stroke: "black", 
-			fill: "none"}); 
-	} else {
-		var outer = draw.circle(40, {
-			cx : state.position.x, 
-			cy : state.position.y,
-			stroke: "black",
-			fill: "white"});
-	}
-	outer.mouseover(function() {
-		this.radius(25)
-	})
-	outer.mouseout(function() {
-		this.radius(20)
-	})
-	outer.dblclick(function() {
+			fill: "none"}); }
+	var label = figure.text(state.label, {
+			x: state.position.x -3,
+			y: state.position.y -15})
+
+	figure.mouseover(function() {
+		outer.radius(25);
+		document.body.style.cursor = "pointer"; })
+	figure.mouseout(function() {
+		outer.radius(20);
+		document.body.style.cursor = "default"; })
+	figure.dblclick(function() {
 		nodeInterface(state)
 	})
 }
-// ctx.fillStyle = "#000000";
-// ctx.strokeStyle = "#000000";
-// ctx.lineWidth = 3;
 
 // function draw_arrowhead(context, from, to, radius) {
 //     var x_center = to.x;

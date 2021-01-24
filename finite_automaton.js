@@ -30,42 +30,6 @@ class Transition {
 		this.bend = bend;
 		this.label = label;
     }
-    
-    figure() {
-        var line;
-        if (transition.to === transition.from) {
-            line = new fabric.Circle({
-                radius: RADIUS,
-                left: transition.to.position.x + RADIUS + ARROWSIZE,
-                top: transition.to.position.y + RADIUS,
-                angle: 45,
-                startAngle: Math.PI * 3 / 2,
-                endAngle: Math.PI,
-                stroke: '#000',
-                strokeWidth: 3,
-                fill: ''
-            });
-
-            context.beginPath();
-            context.arc(transition.to.position.x + RADIUS + ARROWSIZE, transition.to.position.y + RADIUS, RADIUS, Math.PI*3/2, Math.PI);
-            context.stroke();
-            draw_arrowhead(context, { x : transition.to.position.x + 2 * RADIUS, y : transition.to.position.y }, { x : transition.to.position.x + RADIUS + ARROWSIZE, y : transition.to.position.y }, ARROWSIZE);
-        } else {
-            context.beginPath();
-            var angle;
-            var x;
-            var y;
-            angle = Math.atan2(transition.to.position.y - transition.from.position.y, transition.to.position.x - transition.from.position.x)
-            x = transition.to.position.x - (RADIUS + ARROWSIZE) * Math.cos(angle);
-            y = transition.to.position.y - (RADIUS + ARROWSIZE) * Math.sin(angle);
-            context.moveTo(x, y);
-            x = transition.from.position.x + (RADIUS + ARROWSIZE) * Math.cos(angle);
-            y = transition.from.position.y + (RADIUS + ARROWSIZE) * Math.sin(angle);
-            context.lineTo(x, y);
-            context.stroke();
-            draw_arrowhead(context, transition.to.position, { x: x, y: y }, ARROWSIZE);
-        }
-    }
 }
 
 class Finite_Automaton { 

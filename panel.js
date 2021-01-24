@@ -80,9 +80,33 @@ function startPanel(node) {
 }
 
 function toArrowInterface(transition) {
+	panelrefresh();
+	var bendleft = button(0, "Bend left", function() {
+		transition.bendleft();
+		refreshDrawing(); });
+	var bendright = button(1, "Bend right", function() {
+		transition.bendright();
+		refreshDrawing(); });
+	var change = button(2, "Change label", function() {
+		transition.switchlabels(prompt("Enter new label", transition.label))
+		refreshDrawing(); });
+	var goback = button(10, "Back to previous menu", function() {
+		refresh();});
 }
 
 function selfArrowInterface(transition) {
+	panelrefresh();
+	var bendleft = button(0, "Rotate clockwise", function() {
+		transition.bendleft();
+		refreshDrawing(); });
+	var bendright = button(1, "Rotate counterclockwise", function() {
+		transition.bendright();
+		refreshDrawing(); });
+	var change = button(2, "Change label", function() {
+		transition.switchlabels(prompt("Enter new label", transition.label))
+		refreshDrawing(); });
+	var goback = button(10, "Back to previous menu", function() {
+		refresh();});
 }
 
 function defaultPanel() {

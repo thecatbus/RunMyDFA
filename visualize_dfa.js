@@ -14,6 +14,9 @@ function drawInitial(state) {
     var line = figure.line(state.position.x - RADIUS - INITLENGTH, state.position.y, state.position.x - RADIUS, state.position.y, { 'fill': "none", 'stroke-width': 1.5, 'stroke': 'black' });
     var head = figure.image("./img/arrow.svg");
     head.transform({ scale: 3, tx: state.position.x - RADIUS - 7, ty: state.position.y - 9});
+    var label = figure.text("START");
+    label.center(state.position.x - RADIUS - INITLENGTH- 25, state.position.y);
+
 }
 
 function drawState(state) { 

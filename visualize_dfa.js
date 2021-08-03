@@ -20,13 +20,17 @@ function drawInitial(state) {
 
 function drawState(state) { 
 	var figure = draw.group();
+
+    if (state.active) var bg = "khaki";
+    else var bg = "white";
+
 	var outer = figure.circle(40, {
 			cx : state.position.x, 
 			cy : state.position.y,
 			stroke: "black",
 			'stroke-width': 1.5,
-			fill: "white",
-			'fill-opacity': 0});
+			fill: bg//'fill-opacity': 0
+        });
 	if (state.accepting) {
 		var inner = figure.circle(30, { 
 			cx : state.position.x, 
@@ -51,20 +55,23 @@ function drawState(state) {
                 selected = false;
                 refresh();
             } else {
-                var label = prompt("Enter a label for this transition (leave empty to make no transition)");
-                if (label) {
-                    myDFA.addArrow(new Transition(selected, state, [], "", label));
-                    refresh();
-                } else {
-                    nodeInterface(state);
-                    selected = state;
-                }
+                // Now a transition will be prompted on creating a new node
+                addTransition(selected, state);
+                selected = false;
             }
         } else {
             nodeInterface(state);
             selected = state;
         }
 	})
+}
+
+function addTransition(from, to) {
+    var label = prompt("Enter a label for this transition (leave empty to make no transition)");
+    if (label) {
+        myDFA.addArrow(new Transition(from, to, [], "", label));
+        refresh();
+    }
 }
 
 function drawTransition(transition) {
@@ -213,6 +220,6 @@ function refreshDrawing() {
 }
 
 function refresh(){
-	defaultPanel();
+	defaultPanel(); // This is not defined? // Maybe panelrefresh() instead?
 	refreshDrawing();
 }

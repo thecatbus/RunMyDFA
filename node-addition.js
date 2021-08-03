@@ -36,7 +36,8 @@ function addghost(node, where) {
 	})
 	ghost.click(function() {
 		namecounter+=1;
-		myDFA.addNode(namecounter.toString(), {ref: node, where: where}, false, "");
+		var newnode = myDFA.addNode(namecounter.toString(), {ref: node, where: where}, false, "");
+		addTransition(node, newnode);
 		refresh();
 	}) 
 }

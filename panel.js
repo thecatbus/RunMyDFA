@@ -4,7 +4,7 @@ function panelrefresh() {
 	var background = panel.rect(250, height, {
 		fill: 'black',
 		'fill-opacity':0.6});
-	var creds = button(12, "Fox and Parth @71springs", function() {});
+	var creds = button(12, "Fox and Parth and John :)", function() {});
 	var github = button(13, "Github", function() {window.open("https://github.com/bognovogomira/RunMyDFA")});
 
 	var runtext = panel.text("run", {x:0, y:-7, fill: "#999999"});
@@ -144,5 +144,8 @@ function defaultPanel() {
 		prompt("Copy this at the start of your TeX file.", preamble())});
 	var center = button(2, "Center screen", function() {
 		window.scroll(2500-width/2, 2500-height/2); });
+	var runbtn = button(3, "RunMyDFA (TM)", function() {
+		myDFA.begin(prompt("Input a word to your DFA:"));
+	})
 }
 

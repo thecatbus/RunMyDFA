@@ -8,7 +8,9 @@ class State {
 		this.position = position; 
 		this.relative = relative;
 		this.accepting = accepting;
-        this.label = label; 
+        this.label = label;
+		
+		this.active = false;
 	} 
 
 	isNotAnchor() {
@@ -83,7 +85,7 @@ class Finite_Automaton {
             accepting = false,
             label = "") {
 	    let newposition = findposition(relative.ref, relative.where); 
-	    let node = new State(name, newposition, relative, accepting, label)
+	    let node = new State(name, newposition, relative, accepting, label) 
         this.states.push(node); 
         return node;
 	} 
@@ -93,7 +95,52 @@ class Finite_Automaton {
 	}
 }
 
-class DFA extends Finite_Automaton {
+class DFA extends Finite_Automaton { 
+
+	async begin(word = "") {
+		this.states.forEach(state => { state.active = false; })
+		if (this.initial) {
+			this.initial.active = true;	
+			refresh();				
+			this.step(word);
+		}
+	}
+
+	async step(word = "") {
+		await sleep(1000);
+		var newstates = [];
+		if (word) {
+			var sigma = word[0];
+			console.log(sigma);
+			word = word.slice(1);
+
+			for(const transition of this.transitions) {
+				if (transition.from.active && transition.label == sigma) {
+					newstates.push(transition.to)
+				}
+			}			
+			this.states.forEach(state => { state.active = false; });
+			newstates.forEach(state => { state.active = true; });
+			refresh();
+			this.step(word);
+
+		} else {
+			var accepted = false;
+			this.states.forEach(state => {
+				if (state.active && state.accepting) {
+					if (!accepted) {
+						alert("Accepted");
+						accepted = true;
+					}
+				}
+			})
+			if (!accepted) alert("Not Accepted");
+		}
+	}
+}
+
+function sleep(ms) {
+	return new Promise(r => setTimeout(r, ms));
 }
 
 const ABOVE = {left: false, right: false, above: true, below: false};
